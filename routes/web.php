@@ -4,7 +4,16 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Usercontroller;
 use App\Http\Controllers\Admin\UserRoleController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Product\BrandController;
+use App\Http\Controllers\Product\CategoryController;
+use App\Http\Controllers\Product\ColorController;
+use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Product\SizeController;
+use App\Http\Controllers\Product\StatusController;
+use App\Http\Controllers\Product\SubCategoryController;
+use App\Http\Controllers\Product\UnitController;
 use App\Http\Controllers\WebsiteController;
+use App\Models\MainCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -73,6 +82,27 @@ function( ){
     Route::get('/index',[UserRoleController::class,'index'])->name('admin_user_role_index');
     Route::post('/update',[UserRoleController::class,'update'])->name('admin_user_role_update');
     Route::post('/delete',[UserRoleController::class,'delete'])->name('admin_user_role_delete');
+
+
+});
+//product Page
+Route::group([
+'prefix' => 'admin/product',
+'middleware' => 'auth',
+'namespace' => 'Product'],
+function( ){
+    Route::get('/index',[ProductController::class,'index'])->name('admin_product_index');
+    Route::get('/create',[ProductController::class,'create'])->name('admin_product_create');
+    Route::get('/show',[ProductController::class,'show'])->name('admin_product_show');
+
+    Route::resource('brand','BrandController');
+    Route::resource('main-category','MainCategoryController');
+    Route::resource('category', 'CategoryController');
+    Route::resource('sub-category','SubCategoryController');
+    Route::resource('color','ColorController');
+    Route::resource('size','SizeController');
+    Route::resource('unit','UnitController');
+    Route::resource('status','StatusController');
 
 
 });

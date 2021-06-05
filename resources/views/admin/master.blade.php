@@ -29,6 +29,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="{{ asset('contents/admin/assets/js/jquery.min.js') }}"></script>
 
+
 <script>
       $.ajaxSetup({
                 cache:false,
@@ -160,7 +161,7 @@
 
 <!-- Bootstrap core JavaScript-->
 
- <script src="{{ asset('contents/admin/custom.js') }}"></script>
+<script src="{{ asset('contents/admin/custom.js') }}"></script>
  <script src="{{ asset('contents/admin/assets/js/popper.min.js') }}"></script>
  <script src="{{ asset('contents/admin/assets/js/bootstrap.min.js') }}"></script>
 

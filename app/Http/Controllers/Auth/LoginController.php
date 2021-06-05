@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -45,10 +46,16 @@ class LoginController extends Controller
         $this->guard()->attempt(
             $this->credentials($request), $request->filled('remember')
         );
+        if(!User::where('email', $request->email)->exists()){
+            Auth::logout();
+            session()->flash('type','danger');
+            session()->flash('message','your account is blocked');
+            return \back();
+        }
         if(Auth::user()->status == 0){
             Auth::logout();
-            session()->flash('type','success');
-            session()->flash('message','hhhhhhhhhhhhhhhhhh');
+            session()->flash('type','danger');
+            session()->flash('message','your account is blocked');
             return \back();
         }else{
             return \redirect('/admin');
