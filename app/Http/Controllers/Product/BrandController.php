@@ -40,6 +40,9 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
         $brand = Brand::create($request->except('logo'));
         if($request->has('logo')){
             $brand->logo = Storage::put('brands', $request->file('logo'));
@@ -48,7 +51,9 @@ class BrandController extends Controller
         $brand->slug = Str::slug($brand->name);
         $brand->creator =Auth::user()->id;
         $brand->save();
-        return redirect()->route('brand.index')->with('success','brand added');
+        return 'success';
+        //return redirect()->route('brand.index')->with('success','brand added');
+
 
     }
 
