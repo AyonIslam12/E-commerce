@@ -84,8 +84,6 @@ class StatusController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
         $request->validate([
             'name' => 'required|string',
             'serial' => 'required|string',

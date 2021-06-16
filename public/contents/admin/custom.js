@@ -16,6 +16,14 @@ $(function () {
     $("input").on("focus", function (e) {
         $(this).siblings("span").html(" ");
     });
+    $("select").on("focus", function (e) {
+        $(this).siblings("span").html(" ");
+    });
+    //for inser data
+    $("textarea").on("focus", function (e) {
+        $(this).siblings("span").html(" ");
+    });
+
     //for inser data
     $(".insert_form").on("submit", function (e) {
         e.preventDefault();

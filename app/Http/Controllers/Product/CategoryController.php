@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Support\Str;
+use App\Models\MainCategory;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -14,7 +19,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = Category::with('main_category')->where('status',1)->latest()->paginate(10);
+       return \view('admin.pages.category.index',\compact('category'));
     }
 
     /**
@@ -24,7 +30,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $main_category = MainCategory::where('status',1)->latest()->get();
+        return \view('admin.pages.category.create',\compact('main_category'));
     }
 
     /**
@@ -35,7 +42,23 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $request->validate([
+           'name' => 'required|string',
+           'main_category_id' => 'required|string',
+           'icon' => 'required',
+
+       ]);
+       $category = Category::create($request->except('icon'));
+       if($request->has('icon')){
+        $category->icon = Storage::put('category', $request->file('icon'));
+        $category->save();
+        }
+        $category->slug = Str::slug($category->name);
+        $category->creator =Auth::user()->id;
+        $category->save();
+        return \response('success');
+
+
     }
 
     /**
@@ -57,7 +80,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $main_category = MainCategory::where('status',1)->latest()->get();
+        $category = Category::find($id);
+        return \view('admin.pages.category.edit',\compact('category','main_category'));
     }
 
     /**
@@ -69,7 +94,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'main_category_id' => 'required|string',
+        ]);
+        $category =Category::find($id);
+        if($request->has('icon')){
+            $category->icon = Storage::put('category', $request->file('icon'));
+            $category->save();
+            }
+        $category->name = $request->name;
+        $category->main_category_id = $request->main_category_id;
+        $category->slug = Str::slug($category->name);
+        $category->creator =Auth::user()->id;
+        $category->save();
+        return \response('success');
+
     }
 
     /**
@@ -80,6 +120,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category =Category::find($id);
+        if($category){
+            $category->delete();
+        }
+        return \response('success');
     }
 }
