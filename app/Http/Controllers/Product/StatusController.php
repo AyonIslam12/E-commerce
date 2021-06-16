@@ -39,12 +39,17 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string',
+            'serial' => 'required|string',
+        ]);
         $status = Status::create($request->except('icon'));
         $status->serial = $request->serial;
         $status->slug = Str::slug($status->name);
         $status->creator =Auth::user()->id;
         $status->save();
-        return redirect()->route('status.index')->with('success','data added');
+        //return redirect()->route('status.index')->with('success','data added');
+        return \response('success');
     }
 
     /**
@@ -80,14 +85,20 @@ class StatusController extends Controller
     public function update(Request $request, $id)
     {
 
+
+        $request->validate([
+            'name' => 'required|string',
+            'serial' => 'required|string',
+        ]);
+
         $status = Status::find($id);
         $status->name = $request->name;
         $status->serial = $request->serial;
         $status->slug = Str::slug($status->name);
         $status->creator = Auth::user()->id;
         $status->save();
-
-         return redirect()->route('status.index')->with('success','data updated');
+        return \response('success');
+         //return redirect()->route('status.index')->with('success','data updated');
     }
 
     /**

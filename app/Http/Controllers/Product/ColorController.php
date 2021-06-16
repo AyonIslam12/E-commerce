@@ -39,12 +39,17 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
         $color = Color::create($request->except('icon'));
 
         $color->slug = Str::slug($color->name);
         $color->creator =Auth::user()->id;
         $color->save();
-        return redirect()->route('color.index')->with('success','data added');
+        //return redirect()->route('color.index')->with('success','data added');
+        return \response('success');
     }
 
     /**
@@ -79,13 +84,17 @@ class ColorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
        $color = Color::find($id);
        $color->name = $request->name;
        $color->slug = Str::slug($color->name);
        $color->creator = Auth::user()->id;
        $color->save();
-
-        return redirect()->route('color.index')->with('success','data updated');
+       return \response('success');
+        //return redirect()->route('color.index')->with('success','data updated');
     }
 
     /**

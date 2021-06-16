@@ -15,21 +15,27 @@ Brand-edit
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">Edit Status</div>
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title">Edit Status</div>
+                        <a class="btn btn-secondary" href="{{ route('status.index') }}">Back</a>
+                    </div>
                     <hr />
 
-                    <form action="{{ route('status.update',$status->id) }}" method="POST" >
+                    <form class="update_form" action="{{ route('status.update',$status->id) }}" method="POST" >
+                        <div class="preloader"></div>
                         @csrf
                         @method('PUT')
                         <div class="form-group row">
                             <label for="input-21" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
+                                <span class="text-danger name"></span>
                                 <input type="text" name="name" class="form-control" id="input-21" value="{{ $status->name }}" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="input-21" class="col-sm-2 col-form-label">Serial</label>
                             <div class="col-sm-10">
+                                <span class="text-danger serial"></span>
                                 <input type="text" name="serial" class="form-control" id="input-21" value="{{ $status->serial }}" />
                             </div>
                         </div>
@@ -37,7 +43,7 @@ Brand-edit
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label"></label>
                             <div class="col-sm-10">
-                                <button type="submit" class="btn btn-white px-5"><i class="icon-lock"></i> Add</button>
+                                <button type="submit" class="btn btn-white px-5"><i class="icon-lock"></i> Update</button>
                             </div>
                         </div>
                     </form>

@@ -39,12 +39,17 @@ class SizeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
         $size = Size::create($request->except('icon'));
 
         $size->slug = Str::slug($size->name);
         $size->creator =Auth::user()->id;
         $size->save();
-        return redirect()->route('size.index')->with('success','data added');
+        return \response('success');
+        // return redirect()->route('size.index')->with('success','data added');
     }
 
     /**
@@ -79,13 +84,17 @@ class SizeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
         $size = Size::find($id);
         $size->name = $request->name;
         $size->slug = Str::slug($size->name);
         $size->creator = Auth::user()->id;
         $size->save();
-
-         return redirect()->route('size.index')->with('success','data updated');
+        return \response('success');
+        // return redirect()->route('size.index')->with('success','data updated');
     }
 
     /**

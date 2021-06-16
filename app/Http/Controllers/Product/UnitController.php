@@ -39,12 +39,16 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
         $unit = Unit::create($request->except('icon'));
 
         $unit->slug = Str::slug($unit->name);
         $unit->creator =Auth::user()->id;
         $unit->save();
-        return redirect()->route('unit.index')->with('success','data added');
+        //return redirect()->route('unit.index')->with('success','data added');
+        return \response('success');
     }
 
     /**
@@ -79,13 +83,17 @@ class UnitController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
         $unit = Unit::find($id);
         $unit->name = $request->name;
         $unit->slug = Str::slug($unit->name);
         $unit->creator = Auth::user()->id;
         $unit->save();
-
-         return redirect()->route('unit.index')->with('success','data updated');
+        return \response('success');
+        //return redirect()->route('unit.index')->with('success','data updated');
     }
 
     /**

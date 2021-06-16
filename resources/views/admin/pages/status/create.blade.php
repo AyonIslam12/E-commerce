@@ -15,19 +15,25 @@ Blank-Page
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">Add Status</div>
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title">Add Status</div>
+                        <a class="btn btn-secondary" href="{{ route('status.index') }}">Back</a>
+                    </div>
                     <hr />
-                    <form action="{{ route('status.store') }}" method="POST">
+                    <form class="insert_form" action="{{ route('status.store') }}" method="POST">
+                        <div class="preloader"></div>
                         @csrf
                         <div class="form-group row">
                             <label for="input-21" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
+                                <span class="text-danger name"></span>
                                 <input type="text" name="name" class="form-control" id="input-21" placeholder="Enter Your Name" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="input-21" class="col-sm-2 col-form-label">Serial</label>
                             <div class="col-sm-10">
+                                <span class="text-danger serial"></span>
                                 <input type="number" name="serial" class="form-control" id="input-21" placeholder="Enter Serial Number" />
                             </div>
                         </div>

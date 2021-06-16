@@ -14,10 +14,15 @@ Blank-Page
       <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body">
-                    <div class="card-title">Add Brands</div>
+                <div class="card-body ">
+                    <div class="card-header d-flex justify-content-between">
+
+                        <div class="card-title">Add Brands</div>
+                        <a class="btn btn-secondary" href="{{ route('brand.index') }}">Back</a>
+                    </div>
                     <hr />
-                    <form class="insert_form" name="insert_form" action="{{ route('brand.store') }}" method="POST" enctype="multipart/form-data">
+                    <form class="insert_form" action="{{ route('brand.store') }}" method="POST" enctype="multipart/form-data">
+                        <div class="preloader"></div>
                         @csrf
                         <div class="form-group row">
                             <label for="input-21" class="col-sm-2 col-form-label">Name</label>
@@ -31,6 +36,7 @@ Blank-Page
                             <label for="input-25" class="col-sm-2 col-form-label">Icon</label>
                             <div class="col-sm-10">
                                 <input type="file" name="logo" class="form-control" id="input-25"  />
+                                <span class="text-danger logo"></span>
                             </div>
                         </div>
 

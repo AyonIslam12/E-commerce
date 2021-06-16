@@ -42,6 +42,7 @@ class BrandController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'logo' => 'required',
         ]);
         $brand = Brand::create($request->except('logo'));
         if($request->has('logo')){
@@ -51,7 +52,7 @@ class BrandController extends Controller
         $brand->slug = Str::slug($brand->name);
         $brand->creator =Auth::user()->id;
         $brand->save();
-        return 'success';
+        return \response('success');
         //return redirect()->route('brand.index')->with('success','brand added');
 
 
@@ -89,6 +90,10 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
+         $request->validate([
+            'name' => 'required|string',
+        ]);
+
         $brand = Brand::find($id);
         $brand->name = $request->name;
         if($request->has('logo')){
@@ -98,7 +103,8 @@ class BrandController extends Controller
         $brand->slug = Str::slug($brand->name);
         $brand->creator =Auth::user()->id;
         $brand->save();
-        return redirect()->route('brand.index')->with('success','brand updated');
+       // return redirect()->route('brand.index')->with('success','brand updated');
+       return \response('success');
 
 
     }

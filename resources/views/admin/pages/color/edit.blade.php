@@ -15,15 +15,20 @@ Brand-edit
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">Edit Color</div>
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title">Edit Color</div>
+                        <a class="btn btn-secondary" href="{{ route('color.index') }}">Back</a>
+                    </div>
                     <hr />
 
-                    <form action="{{ route('color.update',$color->id) }}" method="POST" enctype="multipart/form-data">
+                    <form class="update_form" action="{{ route('color.update',$color->id) }}" method="POST" enctype="multipart/form-data">
+                        <div class="preloader"></div>
                         @csrf
                         @method('PUT')
                         <div class="form-group row">
                             <label for="input-21" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
+                                <span class="text-danger name"></span>
                                 <input type="text" name="name" class="form-control" id="input-21" value="{{ $color->name }}" />
                             </div>
                         </div>

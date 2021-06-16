@@ -40,6 +40,10 @@ class MainCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string',
+            'icon' => 'required',
+        ]);
         $main_category = MainCategory::create($request->except('icon'));
         if($request->has('icon')){
             $main_category->icon = Storage::put('maincategory', $request->file('icon'));
@@ -48,7 +52,8 @@ class MainCategoryController extends Controller
         $main_category->slug = Str::slug($main_category->name);
         $main_category->creator =Auth::user()->id;
         $main_category->save();
-        return redirect()->route('main-category.index')->with('success','main category added');
+        //return redirect()->route('main-category.index')->with('success','main category added');
+        return \response('success');
     }
 
     /**
@@ -83,6 +88,10 @@ class MainCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string',
+
+        ]);
         $main_category = MainCategory::find($id);
         $main_category->name = $request->name;
         if($request->has('icon')){
@@ -92,7 +101,8 @@ class MainCategoryController extends Controller
         $main_category->slug = Str::slug($main_category->name);
         $main_category->creator =Auth::user()->id;
         $main_category->save();
-        return redirect()->route('main-category.index')->with('success','data updated');
+        //return redirect()->route('main-category.index')->with('success','data updated');
+        return \response('success');
 
     }
 

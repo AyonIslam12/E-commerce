@@ -9,8 +9,8 @@
   <meta name="description" content="Ecommerce Dashboard"/>
   <meta name="author" content="my-ecom.com"/>
   <title>Admin Panel</title>
-  <!-- loader-->
-  {{-- <link href="{{ asset('contents/admin/assets/css/pace.min.css') }}" rel="stylesheet"/>
+  {{-- <!-- loader-->
+   <link href="{{ asset('contents/admin/assets/css/pace.min.css') }}" rel="stylesheet"/>
   <script src="{{ asset('contents/admin/assets/js/pace.min.js') }}"></script> --}}
   {{-- <!--favicon-->
   <link rel="icon" href="{{ asset('contents/admin/assets/images/favicon.ico') }}" type="image/x-icon"> --}}
@@ -24,10 +24,13 @@
   <link href="{{ asset('contents/admin/assets/css/icons.css') }}" rel="stylesheet" type="text/css"/>
   <!-- Metismenu CSS-->
   <link href="{{ asset('contents/admin/assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet"/>
+
   <!-- Custom Style-->
   <link href="{{ asset('contents/admin/assets/css/app-style.css') }}" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ asset('contents/admin/custom.css') }}">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="{{ asset('contents/admin/assets/js/jquery.min.js') }}"></script>
+
 
 
 <script>
@@ -50,6 +53,7 @@
                 })
             }
 </script>
+<script src="{{ asset('contents/admin/custom.js') }}"></script>
 
 </head>
 
@@ -161,7 +165,7 @@
 
 <!-- Bootstrap core JavaScript-->
 
-<script src="{{ asset('contents/admin/custom.js') }}"></script>
+
  <script src="{{ asset('contents/admin/assets/js/popper.min.js') }}"></script>
  <script src="{{ asset('contents/admin/assets/js/bootstrap.min.js') }}"></script>
 

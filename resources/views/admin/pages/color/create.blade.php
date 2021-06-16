@@ -15,13 +15,18 @@ Blank-Page
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">Add Color</div>
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title">Add Color</div>
+                        <a class="btn btn-secondary" href="{{ route('color.index') }}">Back</a>
+                    </div>
                     <hr />
-                    <form action="{{ route('color.store') }}" method="POST" enctype="multipart/form-data">
+                    <form class="insert_form" action="{{ route('color.store') }}" method="POST" enctype="multipart/form-data">
+                        <div class="preloader"></div>
                         @csrf
                         <div class="form-group row">
                             <label for="input-21" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
+                                <span class="text-danger name"></span>
                                 <input type="text" name="name" class="form-control" id="input-21" placeholder="Enter Your Name" />
                             </div>
                         </div>
