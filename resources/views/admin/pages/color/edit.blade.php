@@ -36,7 +36,7 @@ Brand-edit
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label"></label>
                             <div class="col-sm-10">
-                                <button type="submit" class="btn btn-white px-5"><i class="icon-lock"></i> Add</button>
+                                <button type="submit" class="btn btn-white px-5"><i class="icon-lock"></i> Update</button>
                             </div>
                         </div>
                     </form>

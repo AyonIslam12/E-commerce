@@ -8,10 +8,12 @@ use App\Http\Controllers\Product\BrandController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\ColorController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Product\PublicationController;
 use App\Http\Controllers\Product\SizeController;
 use App\Http\Controllers\Product\StatusController;
 use App\Http\Controllers\Product\SubCategoryController;
 use App\Http\Controllers\Product\UnitController;
+use App\Http\Controllers\Product\WriterController;
 use App\Http\Controllers\WebsiteController;
 use App\Models\MainCategory;
 use Illuminate\Support\Facades\Auth;
@@ -93,7 +95,9 @@ Route::group([
 function( ){
     Route::get('/index',[ProductController::class,'index'])->name('admin_product_index');
     Route::get('/create',[ProductController::class,'create'])->name('admin_product_create');
+    Route::post('/store',[ProductController::class,'store'])->name('admin_product_store');
     Route::get('/show',[ProductController::class,'show'])->name('admin_product_show');
+
 
     Route::resource('brand','BrandController');
     Route::resource('main-category','MainCategoryController');
@@ -103,7 +107,11 @@ function( ){
     Route::resource('size','SizeController');
     Route::resource('unit','UnitController');
     Route::resource('status','StatusController');
+    Route::resource('writer','WriterController');
+    Route::resource('publication','PublicationController');
 
+    Route::get('/get-all-category-selected-by-main-category/{main_category_id}',[CategoryController::class,'get_category_by_main_category'])->name('get_all_category_selected_by_main_category');
+    Route::get('/get-all-sub-cateogory-selected-by-category/{category_id}',[CategoryController::class,'get_sub_category_by_category'])->name('get_all_sub_category_by_category');
 
 });
 //Blank Page

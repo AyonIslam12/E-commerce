@@ -29,7 +29,7 @@ sub-Category-edit
                             <label for="input-21" class="col-sm-2 col-form-label">Select Main Category</label>
                             <div class="col-sm-10">
                                 <span class="text-danger main_category_id "></span>
-                             <select name="main_category_id" class="form-control" id="">
+                             <select id="main_category" name="main_category_id" class="form-control" id="">
                                 @foreach ($main_category as $item)
                                 <option {{ $sub_category->main_category->id == $item->id ? 'selected':'' }} value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
@@ -40,7 +40,7 @@ sub-Category-edit
                             <label for="input-21" class="col-sm-2 col-form-label">Select Category</label>
                             <div class="col-sm-10">
                                 <span class="text-danger category_id "></span>
-                             <select name="category_id" class="form-control" id="">
+                             <select id="category" name="category_id" class="form-control" id="">
                                 @foreach ($category as $item)
                                 <option {{ $sub_category->category_info->id == $item->id ? 'selected':'' }} value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
@@ -82,4 +82,14 @@ sub-Category-edit
     <!-- End container-fluid-->
 
    </div>
+   @push('cjs')
+<script>
+    $('#main_category').on('change', function(){
+        let value = $(this).val();
+        $.get("/admin/product/get-all-category-selected-by-main-category/"+value,(res)=>{
+           $('#category').html(res);
+        })
+    });
+</script>
+@endpush
 @stop

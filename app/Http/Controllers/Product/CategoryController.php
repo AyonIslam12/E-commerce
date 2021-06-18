@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\MainCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -125,5 +126,29 @@ class CategoryController extends Controller
             $category->delete();
         }
         return \response('success');
+    }
+
+    public function get_category_by_main_category($main_category_id){
+        $categories = Category::where('main_category_id',$main_category_id)->get();
+        $option= "";
+
+        foreach($categories as $key=> $value){
+            $id = $value->id;
+            $name = $value->name;
+            $option.="<option  value='$id' >$name</option>";
+        }
+        return $option;
+
+    }
+    public function get_sub_category_by_category($category_id)
+    {
+        $sub_categories = SubCategory::where('category_id',$category_id)->get();
+        $option = "";
+        foreach ($sub_categories as $key => $value) {
+            $id = $value->id;
+            $name = $value->name;
+            $option.= "<option".($key==0?' selected ':'')." value='$id' >$name</option>";
+        }
+        return $option;
     }
 }

@@ -36,6 +36,7 @@ $(function () {
             success: (res) => {
                 console.log(res);
                 $(this).trigger("reset");
+                $('.note-editable').html('');
                 $(".preloader").hide();
                 toaster('success',' Data Added successfully');
             },

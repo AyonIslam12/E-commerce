@@ -15,7 +15,7 @@ Sub-Categories
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title">Category Category</h5>
+                    <h5 class="card-title">Sub Category</h5>
                     <a href="{{ route('sub-category.create') }}" class="btn btn-warning waves-effect waves-light m-1">
                         <i class="fa fa-plus"></i><span>Add New</span>
                     </a>
@@ -29,8 +29,8 @@ Sub-Categories
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Category</th>
                                     <th scope="col">Main Category</th>
-                                    <th scope="col">Sub Category</th>
                                     <th scope="col">Products</th>
                                     <th class="text-center" scope="col">Action</th>
 
@@ -44,8 +44,8 @@ Sub-Categories
                              <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{$item->main_category ? $item->main_category->name : ''}}</td>
                                 <td>{{$item->category_info ? $item->category_info->name : ''}}</td>
+                                <td>{{$item->main_category ? $item->main_category->name : ''}}</td>
                                 <td></td>
                                 <td>
                                     <div class="text-center">

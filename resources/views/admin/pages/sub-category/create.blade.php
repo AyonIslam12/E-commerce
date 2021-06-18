@@ -27,10 +27,10 @@ sub-Category-Page
                             <label for="input-21" class="col-sm-2 col-form-label">Select Main Category</label>
                             <div class="col-sm-10">
                             <span class="text-danger main_category_id "></span>
-                             <select name="main_category_id" class="form-control" id="">
+                             <select id="main_category" name="main_category_id" class="form-control" id="">
                                  <option value="">select</option>
                                  @foreach ($main_category as $item)
-                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                 <option  value="{{ $item->id }}">{{ $item->name }}</option>
                                  @endforeach
 
                              </select>
@@ -41,11 +41,11 @@ sub-Category-Page
                             <label for="input-21" class="col-sm-2 col-form-label">Select Category</label>
                             <div class="col-sm-10">
                             <span class="text-danger category_id "></span>
-                             <select name="category_id" class="form-control" id="">
+                             <select id="category" name="category_id" class="form-control" id="">
                                  <option value="">select</option>
-                                 @foreach ($category as $item)
+                                {{--  @foreach ($category as $item)
                                  <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                 @endforeach
+                                 @endforeach --}}
 
                              </select>
 
@@ -86,4 +86,15 @@ sub-Category-Page
     <!-- End container-fluid-->
 
    </div>
+@push('cjs')
+<script>
+    $('#main_category').on('change', function(){
+        let value = $(this).val();
+        $.get("/admin/product/get-all-category-selected-by-main-category/"+value,(res)=>{
+           $('#category').html(res);
+        })
+    });
+</script>
+@endpush
+
 @stop

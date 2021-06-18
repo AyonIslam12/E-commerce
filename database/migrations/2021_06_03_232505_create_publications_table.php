@@ -17,7 +17,7 @@ class CreatePublicationsTable extends Migration
             $table->id();
             $table->string('name',100)->nullable();
             $table->text('description')->nullable();
-            $table->string('iamge',100)->nullable();
+            $table->string('image',100)->nullable();
             $table->string('creator',100)->nullable();
             $table->text('slug',100)->nullable();
             $table->string('status')->default(1);

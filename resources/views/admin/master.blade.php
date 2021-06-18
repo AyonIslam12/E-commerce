@@ -24,7 +24,7 @@
   <link href="{{ asset('contents/admin/assets/css/icons.css') }}" rel="stylesheet" type="text/css"/>
   <!-- Metismenu CSS-->
   <link href="{{ asset('contents/admin/assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet"/>
-
+  @stack('ccss')
   <!-- Custom Style-->
   <link href="{{ asset('contents/admin/assets/css/app-style.css') }}" rel="stylesheet"/>
   <link rel="stylesheet" href="{{ asset('contents/admin/custom.css') }}">

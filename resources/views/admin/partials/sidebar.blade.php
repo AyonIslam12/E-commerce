@@ -61,6 +61,8 @@
 			<li><a href="{{ route('main-category.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Main Category</a></li>
 			<li><a href="{{ route('category.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i>Category</a></li>
 			<li><a href="{{ route('sub-category.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i>Sub Category</a></li>
+			<li><a href="{{ route('writer.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i>Writer</a></li>
+			<li><a href="{{ route('publication.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i>Publications</a></li>
 			<li><a href="{{ route('color.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Color</a></li>
 			<li><a href="{{ route('size.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Size</a></li>
 			<li><a href="{{ route('unit.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Unit</a></li>

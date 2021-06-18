@@ -33,7 +33,7 @@ class CreateProductsTable extends Migration
 
             $table->string('creator',100)->nullable();
             $table->text('slug',100)->nullable();
-            $table->string('status')->default(1);
+            $table->string('status',50)->default(1);
             $table->timestamps();
         });
     }
