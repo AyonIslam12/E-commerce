@@ -9,8 +9,10 @@ use App\Models\Color;
 use App\Models\MainCategory;
 use App\Models\Publication;
 use App\Models\Size;
+use App\Models\Status;
 use App\Models\SubCategory;
 use App\Models\Unit;
+use App\Models\Vendor;
 use App\Models\Writter;
 use Illuminate\Http\Request;
 
@@ -39,8 +41,8 @@ class ProductController extends Controller
         $units = Unit::where('status', 1)->get();
         $writers = Writter::where('status', 1)->get();
         $publication = Publication::where('status', 1)->get();
-        /* $vendors = Vendor::where('status', 1)->get();
-        $status = Status::where('status', 1)->get(); */
+        $vendors = Vendor::where('status', 1)->get();
+        $status = Status::where('status', 1)->get();
 
         $main_categories = MainCategory::where('status', 1)->get();
         $latest_maincategory_id = MainCategory::where('status', 1)->first()->id;
@@ -63,6 +65,7 @@ class ProductController extends Controller
             'sub_categories',
             'writers',
             'publication',
+            'vendors',
         ));
 
     }
@@ -75,28 +78,26 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'brand_id' => 'required',
-            'main_category_id' => 'required',
-            'category_id' => 'required',
-            'sub_category_id' => 'required',
-            'writer_id' => 'required',
-            'publication_id' => 'required',
-            'color_id' => 'required',
-            'size_id' => 'required',
-            'unit_id' => 'required',
-            'price' => 'required',
-            'discount' => 'required',
-            'expiration_date' => 'required',
-            'stock' => 'required',
-            'alert_quantity' => 'required',
-            'description' => 'required',
-            'features' => 'required',
-            'thumb_image' => 'required',
-            'related_images' => 'required',
-            'status' => 'required',
-
+       $this->validate($request, [
+            'product_name' => ['required'],
+            'brand_id' => ['required'],
+            'product_main_category_id' => ['required'],
+            'product_category_id' => ['required'],
+            'product_sub_category_id' => ['required'],
+            'color_id' => ['required'],
+            'size_id' => ['required'],
+            'unit_id' => ['required'],
+            'vendor_id' => ['required'],
+            'price' => ['required'],
+            'discount' => ['required'],
+            'expiration_date' => ['required'],
+            'stock' => ['required'],
+            'alert_quantity' => ['required'],
+            'description' => ['required'],
+            'features' => ['required'],
+            'thumb_image' => ['required'],
+            'related_images' => ['required'],
+            'status' => ['required'],
         ]);
     }
 

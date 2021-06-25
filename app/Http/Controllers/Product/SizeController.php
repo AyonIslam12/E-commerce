@@ -48,7 +48,11 @@ class SizeController extends Controller
         $size->slug = Str::slug($size->name);
         $size->creator =Auth::user()->id;
         $size->save();
-        return \response('success');
+        return response()->json([
+            'html' => "<option value='".$size->id."'>".$size->name."</option>",
+            'value' => $size->id,
+        ]);
+       // return \response('success');
         // return redirect()->route('size.index')->with('success','data added');
     }
 

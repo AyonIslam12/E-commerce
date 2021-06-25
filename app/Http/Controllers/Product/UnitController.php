@@ -48,7 +48,11 @@ class UnitController extends Controller
         $unit->creator =Auth::user()->id;
         $unit->save();
         //return redirect()->route('unit.index')->with('success','data added');
-        return \response('success');
+        //return \response('success');
+        return response()->json([
+            'html' => "<option value='".$unit->id."'>".$unit->name."</option>",
+            'value' => $unit->id,
+        ]);
     }
 
     /**
@@ -92,8 +96,12 @@ class UnitController extends Controller
         $unit->slug = Str::slug($unit->name);
         $unit->creator = Auth::user()->id;
         $unit->save();
-        return \response('success');
+        //return \response('success');
         //return redirect()->route('unit.index')->with('success','data updated');
+        return response()->json([
+            'html' => "<option value='".$unit->id."'>".$unit->name."</option>",
+            'value' => $unit->id,
+        ]);
     }
 
     /**

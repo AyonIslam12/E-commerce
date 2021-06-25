@@ -54,7 +54,11 @@ class PublicationController extends Controller
         $publication->creator =Auth::user()->id;
         $publication->save();
         //return redirect()->route('main-category.index')->with('success','main category added');
-        return \response('success');
+        //return \response('success');
+        return response()->json([
+            'html' => "<option value='".$publication->id."'>".$publication->name."</option>",
+            'value' => $publication->id,
+        ]);
     }
 
     /**

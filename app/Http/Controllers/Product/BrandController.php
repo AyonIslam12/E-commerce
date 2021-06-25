@@ -52,8 +52,12 @@ class BrandController extends Controller
         $brand->slug = Str::slug($brand->name);
         $brand->creator =Auth::user()->id;
         $brand->save();
-        return \response('success');
+        //return \response('success');
         //return redirect()->route('brand.index')->with('success','brand added');
+        return response()->json([
+            'html' => "<option value='".$brand->id."'>".$brand->name."</option>",
+            'value' => $brand->id,
+        ]);
 
 
     }

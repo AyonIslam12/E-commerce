@@ -17,66 +17,73 @@ Products-Page
                 <div class="card-body">
                     <div class="card-title">Product Add</div>
                     <hr />
-                    <form class="row insert_form" action="{{ route('admin_product_store') }}" method="POST" enctype="multipart/form-data">
+                    <form class="row insert_form" action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="preloader"></div>
                         <div class="form-group col-md-6 col-xl-4">
-                            <label for="input-21" class=" col-form-label">Name</label>
+                            <label for="" class=" col-form-label">Name</label>
                             <div class="">
-                                <input type="text" name="name" class="form-control" id="input-21" placeholder=" Name" />
-                                <span class="text-danger name"></span>
+                                <input type="text" name="product_name" class="form-control" id=" " placeholder=" Name" />
+                                <span class="text-danger product_name"></span>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-xl-4">
-                            <label for="input-21" class=" col-form-label">Brand</label>
-                            <div class="">
-                                <select name="brand_id" id="" class="form-control">
-                                  @foreach($brands as $key => $item)
-                                  <option {{ $key==0?'selected':'' }} value="{{ $item->id }}">{{ $item->name }}</option>
-                                  @endforeach
-                                </select>
-                               <span class="text-danger brand_id"></span>
-                            </div>
+                            <label for="" class=" col-form-label">Brand</label>
+                            @include('admin.pages.product.components.select',[
+                                'name' => 'brand_id',
+                                'attributes' => '',
+                                'class' =>   'multiple-select',
+                                'collection' => $brands,
+                                'action' => route('brand.store'),
+                                'fields' =>[
+                                    ['name' => 'name','type'=> 'text' ],
+                                    ['name' => 'logo','type'=> 'file' ],
+                                ]
+                            ])
+
                         </div>
 
                         <div class="form-group col-md-6  col-xl-4">
-                            <label for="input-21" class=" col-form-label">Main Category</label>
+                            <label for="" class=" col-form-label">Main Category</label>
+
                             <div class="">
-                                <select name="main_category_id" id="main_category" class="form-control">
+                                <select name="product_main_category_id" id="main_category" class="form-control">
                                     <option value="">select</option>
                                     @foreach($main_categories as $key => $item)
                                   <option  value="{{ $item->id }}">{{ $item->name }}</option>
                                   @endforeach
                                 </select>
-                                  <span class="text-danger main_category_id"></span>
+                                  <span class="text-danger product_main_category_id"></span>
                             </div>
                         </div>
 
                         <div class="form-group col-md-6  col-xl-4">
-                            <label for="input-21" class=" col-form-label"> Category</label>
+                            <label for="" class=" col-form-label">Category</label>
                             <div class="">
-                                 <select name="category_id" id="category" multiple class="form-control multiple-select">
-                                  {{--   @foreach($categories as $key => $item)
-                                  <option {{ $key==0?'selected':'' }} value="{{ $item->id }}">{{ $item->name }}</option>
+                                <select name="product_category_id" id="category"  class="form-control multiple-select" multiple>
+                                 {{--    @foreach($categories as $key => $item)
+                                  <option  value="{{ $item->id }}">{{ $item->name }}</option>
                                   @endforeach --}}
                                 </select>
-                                  <span class="text-danger category_id"></span>
+                                  <span class="text-danger product_category_id"></span>
                             </div>
+
+
                         </div>
                         <div class="form-group col-md-6  col-xl-4">
-                            <label for="input-21" class=" col-form-label">Sub Category</label>
+                            <label for="" class=" col-form-label">Sub Category</label>
                             <div class="">
-                                <select name="sub_category_id" id="sub_category" multiple class="form-control multiple-select">
+                                <select name="product_sub_category_id[]" id="sub_category" multiple="multiple"  class="form-control multiple-select" >
 
-                                    {{--   @foreach($sub_categories as $key => $item)
+                                  {{--   @foreach($sub_categories as $key => $item)
                                   <option value="{{ $item->id }}">{{ $item->name }}</option>
                                   @endforeach --}}
                                 </select>
-                                  <span class="text-danger sub_category_id"></span>
+                                  <span class="text-danger product_sub_category_id"></span>
                             </div>
                         </div>
                         <div class="form-group col-md-6  col-xl-4">
-                            <label for="input-21" class=" col-form-label">Writer</label>
+                            <label for="" class=" col-form-label">Writer</label>
                             <div class="">
                                 <select name="writer_id" id="" multiple class="form-control multiple-select">
                                     @foreach($writers as $key => $item)
@@ -87,7 +94,7 @@ Products-Page
                             </div>
                         </div>
                         <div class="form-group col-md-6  col-xl-4">
-                            <label for="input-21" class=" col-form-label">Publication</label>
+                            <label for="" class=" col-form-label">Publication</label>
                             <div class="">
                                 <select name="publication_id" id="" multiple class="form-control multiple-select">
                                     @foreach($publication as $key => $item)
@@ -98,107 +105,134 @@ Products-Page
                             </div>
                         </div>
                         <div class="form-group col-md-6  col-xl-4">
-                            <label for="input-21" class=" col-form-label">Color</label>
+                            <label for="" class="col-form-label">Color</label>
                             @include('admin.pages.product.components.select',[
-
                                 'name' => 'color_id',
                                 'attributes' => 'multiple',
-                                'class' =>   'multiple-select',
+                                'class' => 'multiple-select',
                                 'collection' => $colors,
+                                'action' => route('color.store'),
+                                'fields' => [
+                                    ['name' => 'name', 'type' => 'text'],
+                                ]
+                            ])
+                        </div>
 
-                            ]);
+                        <div class="form-group col-md-6  col-xl-4">
+                            <label for="" class=" col-form-label">Size</label>
+                            @include('admin.pages.product.components.select',[
+                                'name' => 'size_id',
+                                'attributes' => 'multiple',
+                                'class' =>   'multiple-select',
+                                'collection' => $sizes,
+                                'action' => route('size.store'),
+                                'fields' =>[
+                                    ['name' => 'name','type'=> 'text' ],
+                                ]
+                            ])
                         </div>
                         <div class="form-group col-md-6  col-xl-4">
-                            <label for="input-21" class=" col-form-label">Size</label>
-                            <div class="">
-                                <select name="size_id" id="" multiple class="form-control  multiple-select">
-                                    @foreach($sizes as $key => $item)
-                                  <option {{ $key==0?'selected':'' }} value="{{ $item->id }}">{{ $item->name }}</option>
-                                  @endforeach
-                                </select>
-                                  <span class="text-danger size_id"></span>
-                            </div>
+                            <label for="" class=" col-form-label">Unit</label>
+                            @include('admin.pages.product.components.select',[
+                                'name' => 'unit_id',
+                                'attributes' => 'multiple',
+                                'class' =>   'multiple-select',
+                                'collection' => $units,
+                                'action' => route('unit.store'),
+                                'fields' =>[
+                                    ['name' => 'name','type'=> 'text' ],
+                                ]
+                            ])
+
                         </div>
                         <div class="form-group col-md-6  col-xl-4">
-                            <label for="input-21" class=" col-form-label">Unit</label>
-                            <div class="">
-                                <select name="unit_id" id="" multiple class="form-control  multiple-select">
-                                    @foreach($units as $key => $item)
-                                  <option {{ $key==0?'selected':'' }} value="{{ $item->id }}">{{ $item->name }}</option>
-                                  @endforeach
-                                </select>
-                                  <span class="text-danger unit_id"></span>
-                            </div>
+                            <label for="" class=" col-form-label">Vendors</label>
+                            @include('admin.pages.product.components.select',[
+                                'name' => 'vendor_id',
+                                'attributes' => 'multiple',
+                                'class' =>   'multiple-select',
+                                'collection' => $vendors,
+                                'action' => route('vendor.store'),
+                                'fields' =>[
+                                    ['name' => 'name','type'=> 'text' ],
+                                    ['name' => 'email','type'=> 'email' ],
+                                    ['name' => 'mobile_no','type'=> 'text' ],
+                                    ['name' => 'image','type'=> 'file' ],
+                                    ['name' => 'address','type'=> 'textarea' ],
+                                    ['name' => 'description','type'=> 'textarea' ],
+                                ]
+                            ])
+
                         </div>
                         <div class="form-group col-md-6 col-xl-4">
-                            <label for="input-21" class="col-form-label">Price</label>
+                            <label for="" class="col-form-label">Price</label>
                             <div class="">
 
-                                <input type="text" name="price" class="form-control" id="input-21" placeholder=" price" />
+                                <input type="text" name="price" class="form-control" id=" " placeholder=" price" />
                                 <span class="text-danger price" style="font-size: 15px;"></span>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-xl-4">
-                            <label for="input-21" class=" col-form-label">Discount</label>
+                            <label for="" class=" col-form-label">Discount</label>
                             <div class="">
-                                <input type="text" name="discount" class="form-control" id="input-21" placeholder=" discount" />
+                                <input type="text" name="discount" class="form-control" id="" placeholder=" discount" />
                                 <span class="text-danger discount"></span>
                             </div>
                         </div>
 
                         <div class="form-group col-md-6 col-xl-4">
-                            <label for="input-21" class=" col-form-label">Expiration Date</label>
+                            <label for="" class=" col-form-label">Expiration Date</label>
                             <div class="">
-                                <input type="date" name="expiration_date" class="form-control" id="input-21" placeholder=" expiration date" />
+                                <input type="date" name="expiration_date" class="form-control" id="" placeholder=" expiration date" />
                                 <span class="text-danger expiration_date"></span>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-xl-4">
-                            <label for="input-21" class=" col-form-label">Stock</label>
+                            <label for="" class=" col-form-label">Stock</label>
                             <div class="">
-                                <input type="number" name="stock" class="form-control" id="input-21" placeholder=" stock" />
+                                <input type="number" name="stock" class="form-control" id="" placeholder=" stock" />
                                 <span class="text-danger stock"></span>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-xl-4">
-                            <label for="input-21" class=" col-form-label">Alert Quantity</label>
+                            <label for="" class=" col-form-label">Alert Quantity</label>
                             <div class="">
-                                <input type="number" name="alert_quantity" class="form-control" id="input-21" placeholder=" Alert Quantity" />
+                                <input type="number" name="alert_quantity" class="form-control" id="" placeholder=" Alert Quantity" />
                                   <span class="text-danger alert_quantity"></span>
                             </div>
                         </div>
 
                         <div class="col-12"></div>
                         <div class="form-group col-md-6 col-xl-6">
-                            <label for="input-21" class=" col-form-label">Description</label>
+                            <label for="" class=" col-form-label">Description</label>
                             <div class="">
                                 <textarea name="description" id="mytextarea1" class="form-control" cols="30" rows="10"></textarea>
                                 <span class="text-danger description"></span>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-xl-6">
-                            <label for="input-21" class=" col-form-label">Features</label>
+                            <label for="" class=" col-form-label">Features</label>
                             <div class="">
                                 <textarea name="features" id="mytextarea2" class="form-control" cols="30" rows="10"></textarea>
                                 <span class="text-danger features"></span>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-xl-6">
-                            <label for="input-21" class=" col-form-label">Thump Image</label>
+                            <label for="" class=" col-form-label">Thump Image</label>
                             <div class="">
-                                <input type="file" name="thumb_image" class="form-control" id="input-21"  />
+                                <input type="file" name="thumb_image" class="form-control" id=" "  />
                                 <span class="text-danger thumb_image"></span>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-xl-6">
-                            <label for="input-21" class=" col-form-label">Related Image</label>
+                            <label for="" class=" col-form-label">Related Image</label>
                             <div class="">
-                                <input type="file" multiple name="related_images[]" class="form-control" id="input-21"  />
+                                <input type="file" multiple name="related_images[]" class="form-control" id=" "  />
                                 <span class="text-danger related_images"></span>
                             </div>
                         </div>
                         <div class="form-group col-md-6  col-xl-6">
-                            <label for="input-21" class=" col-form-label">Status</label>
+                            <label for="" class=" col-form-label">Status</label>
                             <div class="">
                                 <select name="status" id="" class="form-control">
                                     <option value="draft">Draft</option>
@@ -266,7 +300,7 @@ Products-Page
         })
     });
 
-    $('#category').on('change', function(){
+  $('#category').on('change', function(){
         let value = $(this).val();
         $.get("/admin/product/get-all-sub-cateogory-selected-by-category/"+value,(res)=>{
            $('#sub_category').html(res);

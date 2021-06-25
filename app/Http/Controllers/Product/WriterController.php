@@ -54,7 +54,11 @@ class WriterController extends Controller
         $writer->creator =Auth::user()->id;
         $writer->save();
         //return redirect()->route('main-category.index')->with('success','main category added');
-        return \response('success');
+        //return \response('success');
+        return response()->json([
+            'html' => "<option value='".$writer->id."'>".$writer->name."</option>",
+            'value' => $writer->id,
+        ]);
     }
 
     /**

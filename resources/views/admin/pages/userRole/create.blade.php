@@ -15,7 +15,7 @@ Blank-Page
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">Horizontal Form</div>
+                    <div class="card-title">User Role</div>
                     <hr />
                     <form>
                         <div class="form-group row">

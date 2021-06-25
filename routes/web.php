@@ -7,12 +7,14 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Product\BrandController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\ColorController;
+use App\Http\Controllers\Product\MainCategoryController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Product\PublicationController;
 use App\Http\Controllers\Product\SizeController;
 use App\Http\Controllers\Product\StatusController;
 use App\Http\Controllers\Product\SubCategoryController;
 use App\Http\Controllers\Product\UnitController;
+use App\Http\Controllers\Product\VendorController;
 use App\Http\Controllers\Product\WriterController;
 use App\Http\Controllers\WebsiteController;
 use App\Models\MainCategory;
@@ -93,11 +95,11 @@ Route::group([
 'middleware' => 'auth',
 'namespace' => 'Product'],
 function( ){
-    Route::get('/index',[ProductController::class,'index'])->name('admin_product_index');
+    /* Route::get('/index',[ProductController::class,'index'])->name('admin_product_index');
     Route::get('/create',[ProductController::class,'create'])->name('admin_product_create');
     Route::post('/store',[ProductController::class,'store'])->name('admin_product_store');
-    Route::get('/show',[ProductController::class,'show'])->name('admin_product_show');
-
+    Route::get('/show',[ProductController::class,'show'])->name('admin_product_show'); */
+    Route::resource('product', 'ProductController');
 
     Route::resource('brand','BrandController');
     Route::resource('main-category','MainCategoryController');
@@ -109,10 +111,13 @@ function( ){
     Route::resource('status','StatusController');
     Route::resource('writer','WriterController');
     Route::resource('publication','PublicationController');
+    Route::resource('vendor','VendorController');
 
     Route::get('/get-all-category-selected-by-main-category/{main_category_id}',[CategoryController::class,'get_category_by_main_category'])->name('get_all_category_selected_by_main_category');
     Route::get('/get-all-sub-cateogory-selected-by-category/{category_id}',[CategoryController::class,'get_sub_category_by_category'])->name('get_all_sub_category_by_category');
-
+//Geting json data for
+    Route::get('/get-all-main-category-josn', [MainCategoryController::class,'get_main_category_json'])->name('get_main_category_json');
+    Route::get('/get-all-category-josn', 'CategoryController@get_category_json')->name('get_category_json');
 });
 //Blank Page
 Route::group(['prefix' => 'blank',

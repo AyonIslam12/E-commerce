@@ -53,7 +53,11 @@ class MainCategoryController extends Controller
         $main_category->creator =Auth::user()->id;
         $main_category->save();
         //return redirect()->route('main-category.index')->with('success','main category added');
-        return \response('success');
+        //return \response('success');
+        return response()->json([
+            'html' => "<option value='".$main_category->id."'>".$main_category->name."</option>",
+            'value' => $main_category->id,
+        ]);
     }
 
     /**
@@ -119,5 +123,15 @@ class MainCategoryController extends Controller
         $main_category ->delete();
        }
        return \response('success');
+    }
+
+    public function get_main_category_json()
+    {
+        $collection = MainCategory::where('status',1)->latest()->get();
+        $options = '';
+        foreach ($collection as $key => $value) {
+            $options .= "<option ".($key==0?' selected':'')." value='".$value->id."'>".$value->name."</option>";
+        }
+        return $options;
     }
 }

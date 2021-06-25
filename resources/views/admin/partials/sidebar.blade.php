@@ -56,7 +56,7 @@
 			<div class="menu-title">Product Management </div>
 		  </a>
 		  <ul class="#">
-			<li><a href="{{ route('admin_product_create') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Add Product</a></li>
+			<li><a href="{{ route('product.create') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Add Product</a></li>
 			<li><a href="{{ route('brand.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Brands</a></li>
 			<li><a href="{{ route('main-category.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Main Category</a></li>
 			<li><a href="{{ route('category.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i>Category</a></li>
@@ -66,6 +66,7 @@
 			<li><a href="{{ route('color.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Color</a></li>
 			<li><a href="{{ route('size.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Size</a></li>
 			<li><a href="{{ route('unit.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Unit</a></li>
+			<li><a href="{{ route('vendor.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Vendor</a></li>
 			<li><a href="{{ route('status.index') }}"><i class="zmdi zmdi-dot-circle-alt"></i> Status</a></li>
 
 		  </ul>

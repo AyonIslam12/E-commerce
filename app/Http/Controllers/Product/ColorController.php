@@ -49,7 +49,11 @@ class ColorController extends Controller
         $color->creator =Auth::user()->id;
         $color->save();
         //return redirect()->route('color.index')->with('success','data added');
-        return \response('success');
+        //return \response('success');
+        return response()->json([
+            'html' => "<option value='".$color->id."'>".$color->name."</option>",
+            'value' => $color->id,
+        ]);
     }
 
     /**
