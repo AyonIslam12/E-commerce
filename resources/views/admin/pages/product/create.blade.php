@@ -22,10 +22,10 @@ Products-Page
                         <div class="preloader"></div>
                         <div class="form-group col-md-6 col-xl-4">
                             <label for="" class=" col-form-label">Name</label>
-                            <div class="">
-                                <input type="text" name="product_name" class="form-control" id=" " placeholder=" Name" />
-                                <span class="text-danger product_name"></span>
-                            </div>
+                            @include('admin.pages.product.components.input',[
+                                        'name' => 'product_name',
+                                        'type' => 'text'
+                                    ])
                         </div>
                         <div class="form-group col-md-6 col-xl-4">
                             <label for="" class=" col-form-label">Brand</label>
@@ -60,10 +60,11 @@ Products-Page
                         <div class="form-group col-md-6  col-xl-4">
                             <label for="" class=" col-form-label">Category</label>
                             <div class="">
+
                                 <select name="product_category_id" id="category"  class="form-control multiple-select" multiple>
-                                 {{--    @foreach($categories as $key => $item)
+                                  @foreach($categories as $key => $item)
                                   <option  value="{{ $item->id }}">{{ $item->name }}</option>
-                                  @endforeach --}}
+                                  @endforeach
                                 </select>
                                   <span class="text-danger product_category_id"></span>
                             </div>
@@ -75,9 +76,9 @@ Products-Page
                             <div class="">
                                 <select name="product_sub_category_id[]" id="sub_category" multiple="multiple"  class="form-control multiple-select" >
 
-                                  {{--   @foreach($sub_categories as $key => $item)
+                                @foreach($sub_categories as $key => $item)
                                   <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                  @endforeach --}}
+                                  @endforeach
                                 </select>
                                   <span class="text-danger product_sub_category_id"></span>
                             </div>
@@ -166,40 +167,47 @@ Products-Page
                         </div>
                         <div class="form-group col-md-6 col-xl-4">
                             <label for="" class="col-form-label">Price</label>
-                            <div class="">
-
-                                <input type="text" name="price" class="form-control" id=" " placeholder=" price" />
-                                <span class="text-danger price" style="font-size: 15px;"></span>
-                            </div>
+                            @include('admin.pages.product.components.input',[
+                                        'name' => 'price',
+                                        'type' => 'number',
+                                        'attr' => "step='0.01'"
+                                    ])
+                        </div>
+                        <div class="form-group col-md-6 col-xl-4">
+                            <label for="" class=" col-form-label">Tax</label>
+                            @include('admin.pages.product.components.input',[
+                                'name' => 'tax',
+                                'type' => 'number'
+                            ])
                         </div>
                         <div class="form-group col-md-6 col-xl-4">
                             <label for="" class=" col-form-label">Discount</label>
-                            <div class="">
-                                <input type="text" name="discount" class="form-control" id="" placeholder=" discount" />
-                                <span class="text-danger discount"></span>
-                            </div>
+                            @include('admin.pages.product.components.input',[
+                                'name' => 'discount',
+                                'type' => 'text'
+                            ])
                         </div>
 
                         <div class="form-group col-md-6 col-xl-4">
                             <label for="" class=" col-form-label">Expiration Date</label>
-                            <div class="">
-                                <input type="date" name="expiration_date" class="form-control" id="" placeholder=" expiration date" />
-                                <span class="text-danger expiration_date"></span>
-                            </div>
+                            @include('admin.pages.product.components.input',[
+                                'name' => 'expiration_date',
+                                'type' => 'date'
+                            ])
                         </div>
                         <div class="form-group col-md-6 col-xl-4">
                             <label for="" class=" col-form-label">Stock</label>
-                            <div class="">
-                                <input type="number" name="stock" class="form-control" id="" placeholder=" stock" />
-                                <span class="text-danger stock"></span>
-                            </div>
+                            @include('admin.pages.product.components.input',[
+                                'name' => 'stock',
+                                'type' => 'number'
+                            ])
                         </div>
                         <div class="form-group col-md-6 col-xl-4">
                             <label for="" class=" col-form-label">Alert Quantity</label>
-                            <div class="">
-                                <input type="number" name="alert_quantity" class="form-control" id="" placeholder=" Alert Quantity" />
-                                  <span class="text-danger alert_quantity"></span>
-                            </div>
+                            @include('admin.pages.product.components.input',[
+                                'name' => 'alert_quantity',
+                                'type' => 'number'
+                            ])
                         </div>
 
                         <div class="col-12"></div>
@@ -219,17 +227,19 @@ Products-Page
                         </div>
                         <div class="form-group col-md-6 col-xl-6">
                             <label for="" class=" col-form-label">Thump Image</label>
-                            <div class="">
-                                <input type="file" name="thumb_image" class="form-control" id=" "  />
-                                <span class="text-danger thumb_image"></span>
-                            </div>
+                            @include('admin.pages.product.components.input',[
+                                        'name' => 'thumb_image',
+                                        'type' => 'file',
+                                        'attr' => ''
+                                    ])
                         </div>
                         <div class="form-group col-md-6 col-xl-6">
                             <label for="" class=" col-form-label">Related Image</label>
-                            <div class="">
-                                <input type="file" multiple name="related_images[]" class="form-control" id=" "  />
-                                <span class="text-danger related_images"></span>
-                            </div>
+                            @include('admin.pages.product.components.input',[
+                                'name' => 'related_images',
+                                'type' => 'file',
+                                'attr' => 'multiple'
+                            ])
                         </div>
                         <div class="form-group col-md-6  col-xl-6">
                             <label for="" class=" col-form-label">Status</label>

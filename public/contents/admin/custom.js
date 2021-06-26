@@ -21,7 +21,7 @@ $(function () {
     });
     //for for focus
     $("textarea").on("focus", function (e) {
-        $(this).siblings("span").html(" ");
+        $(this).siblings("span .text-danger ").html(" ");
     });
 
     //for inser data
@@ -178,6 +178,33 @@ $(function () {
 
     })
 
+    const get_all_image = ()=>{
+        $.get('/file-manager/get-files',(res)=>{
+            $('.file_manager_image').html(res);
+        })
+    }
+
+    $('.input_file_body').on('click',function(){
+        get_all_image();
+   })
+
+    //Insert Image
+    $('.fm_file_importer').on('change',function(){
+        let temp_form = $(document.createElement('form'));
+        $(temp_form).attr('method','POST');
+        $(temp_form).append($(this).clone());
+        let formData = new FormData(temp_form[0]);
+        $.post('/file-manager/store-file',formData,(res)=>{
+            if(res){
+                $(this).val('');
+                get_all_image();
+                toaster('success','Image Upload successfully');
+            }
+
+        })
+
+
+    })
 
 
 

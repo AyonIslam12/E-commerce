@@ -90,6 +90,7 @@ class ProductController extends Controller
             'vendor_id' => ['required'],
             'price' => ['required'],
             'discount' => ['required'],
+            'tax' => ['required'],
             'expiration_date' => ['required'],
             'stock' => ['required'],
             'alert_quantity' => ['required'],

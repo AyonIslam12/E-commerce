@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\FilemanagerController;
 use App\Http\Controllers\Admin\Usercontroller;
 use App\Http\Controllers\Admin\UserRoleController;
 use App\Http\Controllers\Auth\LoginController;
@@ -118,6 +119,17 @@ function( ){
 //Geting json data for
     Route::get('/get-all-main-category-josn', [MainCategoryController::class,'get_main_category_json'])->name('get_main_category_json');
     Route::get('/get-all-category-josn', 'CategoryController@get_category_json')->name('get_category_json');
+});
+
+Route::group([
+    'prefix' => 'file-manager',
+    'middleware' => ['auth'],
+    'namespace' => 'Admin'
+], function () {
+
+    Route::post('/store-file',[FilemanagerController::class,'store_file'])->name('admin_fm_store_file');
+    Route::get('/get-files', [FilemanagerController::class,'get_files'])->name('admin_fm_get_files');
+    Route::delete('/delete-file/{image}', [FilemanagerController::class,'delete_file'])->name('admin_fm_delete_file');
 });
 //Blank Page
 Route::group(['prefix' => 'blank',

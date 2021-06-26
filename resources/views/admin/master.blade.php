@@ -155,17 +155,21 @@
   </div>
   <!-- Modal -->
 
-
+{{-- file manager modal --}}
+@once
+  @include('admin.pages.product.components.file_manager')
+@endonce
 
 
 {{-- Logout Part --}}
  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
     @csrf
 </form>
+{{-- file manager modal --}}
+@production
 
+@endonce
 <!-- Bootstrap core JavaScript-->
-
-
  <script src="{{ asset('contents/admin/assets/js/popper.min.js') }}"></script>
  <script src="{{ asset('contents/admin/assets/js/bootstrap.min.js') }}"></script>
 

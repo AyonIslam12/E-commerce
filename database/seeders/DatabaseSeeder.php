@@ -617,7 +617,7 @@ class DatabaseSeeder extends Seeder
         // images
         for ($i = 1; $i <= 18; $i++) {
             Image::insert([
-                'name' => 'dummy_products/' . $i . ".jpg",
+                'name' => 'file_manager/' . $i . ".jpg",
                 'creator' => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ]);
