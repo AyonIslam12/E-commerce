@@ -15,9 +15,12 @@ Products-Page
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">Product Add</div>
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title">Add Product</div>
+                        <a class="btn btn-secondary" href="{{ route('product.index') }}">Back</a>
+                    </div>
                     <hr />
-                    <form class="row insert_form" action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
+                    <form class="row insert_form product_insert_form" action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="preloader"></div>
                         <div class="form-group col-md-6 col-xl-4">
@@ -61,12 +64,12 @@ Products-Page
                             <label for="" class=" col-form-label">Category</label>
                             <div class="">
 
-                                <select name="product_category_id" id="category"  class="form-control multiple-select" multiple>
-                                  @foreach($categories as $key => $item)
+                                <select name="category_id" id="category"  class="form-control multiple-select" multiple>
+                                {{--   @foreach($categories as $key => $item)
                                   <option  value="{{ $item->id }}">{{ $item->name }}</option>
-                                  @endforeach
+                                  @endforeach --}}
                                 </select>
-                                  <span class="text-danger product_category_id"></span>
+                                  <span class="text-danger category_id"></span>
                             </div>
 
 
@@ -74,19 +77,19 @@ Products-Page
                         <div class="form-group col-md-6  col-xl-4">
                             <label for="" class=" col-form-label">Sub Category</label>
                             <div class="">
-                                <select name="product_sub_category_id[]" id="sub_category" multiple="multiple"  class="form-control multiple-select" >
+                                <select name="sub_category_id[]" id="sub_category" multiple="multiple"  class="form-control multiple-select" >
 
-                                @foreach($sub_categories as $key => $item)
+                               {{--  @foreach($sub_categories as $key => $item)
                                   <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                  @endforeach
+                                  @endforeach --}}
                                 </select>
-                                  <span class="text-danger product_sub_category_id"></span>
+                                  <span class="text-danger sub_category_id"></span>
                             </div>
                         </div>
                         <div class="form-group col-md-6  col-xl-4">
                             <label for="" class=" col-form-label">Writer</label>
                             <div class="">
-                                <select name="writer_id" id="" multiple class="form-control multiple-select">
+                                <select name="writer_id[]" id="" multiple class="form-control multiple-select">
                                     @foreach($writers as $key => $item)
                                   <option  value="{{ $item->id }}">{{ $item->name }}</option>
                                   @endforeach
@@ -97,7 +100,7 @@ Products-Page
                         <div class="form-group col-md-6  col-xl-4">
                             <label for="" class=" col-form-label">Publication</label>
                             <div class="">
-                                <select name="publication_id" id="" multiple class="form-control multiple-select">
+                                <select name="publication_id[]" id="" multiple class="form-control multiple-select">
                                     @foreach($publication as $key => $item)
                                   <option value="{{ $item->id }}">{{ $item->name }}</option>
                                   @endforeach
@@ -245,10 +248,22 @@ Products-Page
                             <label for="" class=" col-form-label">Status</label>
                             <div class="">
                                 <select name="status" id="" class="form-control">
-                                    <option value="draft">Draft</option>
-                                    <option value="active">Active</option>
+                                    @foreach($status as $key => $item)
+                                    <option value="{{ $item->serial }}">{{ $item->name }}</option>
+
+                                    @endforeach
                                 </select>
                                 <span class="text-danger status"></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6  col-xl-6">
+                            <label for="" class=" col-form-label">Free Delivery</label>
+                            <div class="">
+                                <select name="free_delivery" id="" class="form-control">
+                                    <option value="0">Off</option>
+                                    <option value="1">On</option>
+                                </select>
+                                <span class="text-danger free_delivery"></span>
                             </div>
                         </div>
 

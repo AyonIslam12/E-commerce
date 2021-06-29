@@ -11,15 +11,15 @@ use App\Models\Image;
 use App\Models\Status;
 use App\Models\Vendor;
 use App\Models\product;
-use App\Models\Writter;
 use App\Models\Category;
 use App\Models\Publication;
 use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use App\Models\MainCategory;
+use App\Models\Writer;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use NunoMaduro\Collision\Contracts\Writer;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,18 +29,18 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {/*
-        $this->call([
+    {
+        /* $this->call([
             UserRoleSeeder::class,
             UserSeeder::class
 
-        ]); */
-
+        ]);
+ */
         MainCategory::truncate();
         Category::truncate();
         SubCategory::truncate();
         Brand::truncate();
-        Writter::truncate();
+        Writer::truncate();
         Publication::truncate();
         Color::truncate();
         Size::truncate();
@@ -329,7 +329,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => Carbon::now()->toDateTimeString()
             ],
         ];
-        Writter::insert($data);
+        Writer::insert($data);
 
         // publication
         $data = [
@@ -617,7 +617,7 @@ class DatabaseSeeder extends Seeder
         // images
         for ($i = 1; $i <= 18; $i++) {
             Image::insert([
-                'name' => 'file_manager/' . $i . ".jpg",
+                'name' => 'uploads/file_manager/' . $i . ".jpg",
                 'creator' => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ]);
@@ -626,12 +626,12 @@ class DatabaseSeeder extends Seeder
         // Products
         DB::table('main_category_product')->truncate();
         DB::table('category_product')->truncate();
-        DB::table('sub_category_product')->truncate();
+        DB::table('product_sub_category')->truncate();
         DB::table('color_product')->truncate();
         DB::table('product_size')->truncate();
         DB::table('product_unit')->truncate();
         DB::table('product_vendor')->truncate();
-        DB::table('product_writter')->truncate();
+        DB::table('product_writer')->truncate();
         DB::table('product_publication')->truncate();
         DB::table('image_product')->truncate();
 
@@ -692,7 +692,7 @@ class DatabaseSeeder extends Seeder
                 ['category_id' => 3, 'product_id' => $product->id]
             ]);
 
-            DB::table('sub_category_product')->insert([
+            DB::table('product_sub_category')->insert([
                 ['sub_category_id' => 1, 'product_id' => $product->id],
                 ['sub_category_id' => 2, 'product_id' => $product->id],
                 ['sub_category_id' => 3, 'product_id' => $product->id]
@@ -721,9 +721,9 @@ class DatabaseSeeder extends Seeder
                 ['vendor_id' => 2, 'product_id' => $product->id],
             ]);
 
-            DB::table('product_writter')->insert([
-                ['writter_id' => 1, 'product_id' => $product->id],
-                ['writter_id' => 2, 'product_id' => $product->id],
+            DB::table('product_writer')->insert([
+                ['writer_id' => 1, 'product_id' => $product->id],
+                ['writer_id' => 2, 'product_id' => $product->id],
             ]);
 
             DB::table('product_publication')->insert([

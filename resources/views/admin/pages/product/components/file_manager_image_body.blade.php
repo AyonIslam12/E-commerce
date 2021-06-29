@@ -10,7 +10,7 @@
                         <li><a href="{{ route('admin_fm_delete_file',$item->id) }}" class="delete_btn"><i class="icon-trash icons"></i> Delete</a></li>
                     </ul>
                 </div>
-                <img src="/uploads/{{ $item->name }}" alt="product image">
+                <img src="/{{ $item->name }}" alt="product image">
             </div>
         </li>
     @endforeach

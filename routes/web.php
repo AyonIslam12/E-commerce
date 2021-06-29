@@ -117,8 +117,8 @@ function( ){
     Route::get('/get-all-category-selected-by-main-category/{main_category_id}',[CategoryController::class,'get_category_by_main_category'])->name('get_all_category_selected_by_main_category');
     Route::get('/get-all-sub-cateogory-selected-by-category/{category_id}',[CategoryController::class,'get_sub_category_by_category'])->name('get_all_sub_category_by_category');
 //Geting json data for
-    Route::get('/get-all-main-category-josn', [MainCategoryController::class,'get_main_category_json'])->name('get_main_category_json');
-    Route::get('/get-all-category-josn', 'CategoryController@get_category_json')->name('get_category_json');
+   /*  Route::get('/get-all-main-category-josn', [MainCategoryController::class,'get_main_category_json'])->name('get_main_category_json');
+    Route::get('/get-all-category-josn', 'CategoryController@get_category_json')->name('get_category_json'); */
 });
 
 Route::group([
@@ -129,7 +129,7 @@ Route::group([
 
     Route::post('/store-file',[FilemanagerController::class,'store_file'])->name('admin_fm_store_file');
     Route::get('/get-files', [FilemanagerController::class,'get_files'])->name('admin_fm_get_files');
-    Route::delete('/delete-file/{image}', [FilemanagerController::class,'delete_file'])->name('admin_fm_delete_file');
+    Route::delete('/delete-file/{id}', [FilemanagerController::class,'delete_file'])->name('admin_fm_delete_file');
 });
 //Blank Page
 Route::group(['prefix' => 'blank',

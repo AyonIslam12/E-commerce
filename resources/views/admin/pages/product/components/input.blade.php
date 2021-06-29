@@ -1,6 +1,6 @@
 <div class="">
     @if ($type == 'text' || $type == 'date' || $type == 'number')
-        <input type="{{ $type }}" name="{{ $name }}" class="form-control"  placeholder="{{ $name }}" />
+        <input type="{{ $type }}" name="{{ $name }}" {{isset($attr)?$attr:''}} class="form-control"  placeholder="{{ $name }}" />
     @endif
 
     @if ($type == 'file')

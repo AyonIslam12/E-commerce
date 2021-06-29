@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Models\Writter;
+use App\Models\Writer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,7 +18,7 @@ class WriterController extends Controller
      */
     public function index()
     {
-        $writer = Writter::where('status',1)->latest()->paginate(10);
+        $writer = Writer::where('status',1)->latest()->paginate(10);
         return \view('admin.pages.writer.index',\compact('writer'));
     }
 
@@ -45,7 +45,7 @@ class WriterController extends Controller
             'description' => 'required',
             'image' => 'required',
         ]);
-        $writer = Writter::create($request->except('image'));
+        $writer = Writer::create($request->except('image'));
         if($request->has('image')){
             $writer->image = Storage::put('writer', $request->file('image'));
             $writer->save();
@@ -80,7 +80,7 @@ class WriterController extends Controller
      */
     public function edit($id)
     {
-        $writer = Writter::find($id);
+        $writer = Writer::find($id);
         return \view('admin.pages.writer.edit',\compact('writer'));
     }
 
@@ -98,7 +98,7 @@ class WriterController extends Controller
             'description' => 'required|string',
 
         ]);
-        $writer = Writter::find($id);
+        $writer = Writer::find($id);
         $writer->name = $request->name;
         $writer->description = $request->description;
         if($request->has('image')){
@@ -120,7 +120,7 @@ class WriterController extends Controller
      */
     public function destroy($id)
     {
-        $writer = Writter::find($id);
+        $writer = Writer::find($id);
         if( $writer){
          $writer ->delete();
         }

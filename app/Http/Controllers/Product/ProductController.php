@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\Controller;
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Color;
-use App\Models\MainCategory;
-use App\Models\Publication;
+use Carbon\Carbon;
 use App\Models\Size;
-use App\Models\Status;
-use App\Models\SubCategory;
 use App\Models\Unit;
+use App\Models\Brand;
+use App\Models\Color;
+use App\Models\Status;
 use App\Models\Vendor;
-use App\Models\Writter;
+use App\Models\product;
+use App\Models\Category;
+use App\Models\Publication;
+use App\Models\SubCategory;
+use Illuminate\Support\Str;
+use App\Models\MainCategory;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Writer;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -25,7 +29,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $all_products = Product::active()->with(['category', 'sub_category', 'main_category', 'color', 'image', 'publication', 'size', 'unit', 'vendor', 'writer'])
+                            ->orderBy('id','DESC')->paginate(12);
+        return view('admin.pages.product.index',\compact('all_products'));
     }
 
     /**
@@ -39,7 +45,7 @@ class ProductController extends Controller
         $colors = Color::where('status', 1)->get();
         $sizes = Size::where('status', 1)->get();
         $units = Unit::where('status', 1)->get();
-        $writers = Writter::where('status', 1)->get();
+        $writers = Writer::where('status', 1)->get();
         $publication = Publication::where('status', 1)->get();
         $vendors = Vendor::where('status', 1)->get();
         $status = Status::where('status', 1)->get();
@@ -66,6 +72,7 @@ class ProductController extends Controller
             'writers',
             'publication',
             'vendors',
+            'status'
         ));
 
     }
@@ -82,8 +89,8 @@ class ProductController extends Controller
             'product_name' => ['required'],
             'brand_id' => ['required'],
             'product_main_category_id' => ['required'],
-            'product_category_id' => ['required'],
-            'product_sub_category_id' => ['required'],
+            'category_id' => ['required'],
+            'sub_category_id' => ['required'],
             'color_id' => ['required'],
             'size_id' => ['required'],
             'unit_id' => ['required'],
@@ -100,6 +107,69 @@ class ProductController extends Controller
             'related_images' => ['required'],
             'status' => ['required'],
         ]);
+        $product = new product();
+        $product->name = $request->product_name;
+        $product->brand_id = $request->brand_id;
+        $product->code = '';
+        $product->tax = $request->tax;
+        $product->price = $request->price;
+        $product->sku = '';
+        $product->stock = $request->stock;
+        $product->discount = $request->discount;
+        $product->expiration_date = $request->expiration_date;
+        $product->minimum_amount = $request->alert_quantity;
+        $product->free_delivery = $request->free_delivery;
+        $product->description = $request->description;
+        $product->features = $request->features;
+        $product->thumb_image = $request->thumb_image;
+        $product->status = $request->status;
+        $product->creator = Auth::user()->id;
+        $product->save();
+        $product->code = 'ECO-'. Carbon::now()->year. Carbon::now()->month. $product->id . Carbon::now()->day;
+        $product->slug =Str::slug($product->name);
+        $product->save();
+        if ($request->has('product_main_category_id')) {
+            $product->main_category()->attach($request->product_main_category_id);
+        }
+
+        if ($request->has('category_id')) {
+            $product->category()->attach($request->category_id);
+        }
+
+        if ($request->has('sub_category_id')) {
+            $product->sub_category()->attach($request->sub_category_id);
+        }
+
+        if ($request->has('writer_id')) {
+            $product->writer()->attach($request->writer_id);
+        }
+
+        if ($request->has('publication_id')) {
+            $product->publication()->attach($request->publication_id);
+        }
+
+        if ($request->has('color_id')) {
+            $product->color()->attach($request->color_id);
+        }
+
+        if ($request->has('size_id')) {
+            $product->size()->attach($request->size_id);
+        }
+
+        if ($request->has('unit_id')) {
+            $product->unit()->attach($request->unit_id);
+        }
+
+        if ($request->has('related_images')) {
+            $product->image()->attach(json_decode($request->related_images));
+        }
+
+        if ($request->has('vendor_id')) {
+            $product->vendor()->attach($request->vendor_id);
+        }
+        return Product::with(['category', 'sub_category', 'main_category', 'color', 'image', 'publication', 'size', 'unit', 'vendor', 'writer'])
+        ->latest()->first();
+
     }
 
     /**
@@ -110,7 +180,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return \view('admin.pages.product.view');
+        $product=product::find($id);
+        return \view('admin.pages.product.view',\compact('product'));
     }
 
     /**
@@ -144,6 +215,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product=product::find($id);
+        $product->status = 0;
+        $product->save();
+         return \response('success');
     }
 }

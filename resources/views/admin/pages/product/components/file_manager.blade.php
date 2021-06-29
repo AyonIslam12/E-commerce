@@ -17,7 +17,7 @@
                                     <a href="javascript:;" class="">+ Add File</a>
                                     <input type="file" accept=".jpg, .jpeg, .png" name="fm_file" class="fm_file_importer btn btn-light">
                                 </div>
-                                <h5 class="my-3">My Drive</h5>
+                                {{-- <h5 class="my-3">My Drive</h5>
                                 <div class="fm-menu">
                                     <div class="list-group list-group-flush">
                                         <a href="javascript:;" class="list-group-item py-1"><i class="icon-folder icons"></i><span> All Files</span></a>
@@ -28,7 +28,7 @@
                                         <a href="javascript:;" class="list-group-item py-1"><i class="icon-camrecorder icons"></i><span> Videos</span></a>
                                         <a href="javascript:;" class="list-group-item py-1"><i class="icon-trash icons"></i><span> Deleted Files</span></a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
