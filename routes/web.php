@@ -43,6 +43,7 @@ Route::get('/cart',[WebsiteController::class,'cart'])->name('website_cart');
 Route::get('/checkout',[WebsiteController::class,'checkout'])->name('website_checkout');
 Route::get('/your-wishlist',[WebsiteController::class,'wishlist'])->name('website_wishlist');
 Route::get('/contact-us',[WebsiteController::class,'contact'])->name('website_contact');
+Route::get('/learn', [WebsiteController::class,'vue'])->name('website_vue');
 
 Route::group([
     'prefix' => 'admin',

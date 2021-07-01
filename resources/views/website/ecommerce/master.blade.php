@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="{{asset('contents/website')}}/css/animate.min.css" />
         <!-- Bootstrap fremwork main css -->
         <link rel="stylesheet" href="{{asset('contents/website')}}/css/bootstrap.min.css" />
+        {{-- <link rel="stylesheet" href="/css/app.css"> --}}
         <!-- font-awesome css -->
         <link rel="stylesheet" href="{{asset('contents/website')}}/css/font-awesome.min.css" />
         <!-- nivo-slider css -->
@@ -63,6 +64,9 @@
 
         <!-- Placed js at the end of the document so the pages load faster -->
         <!-- jquery latest version -->
+
+        <script src="/js/app.js"></script>
+
         <script src="{{asset('contents/website')}}/js/vendor/jquery-1.12.4.min.js"></script>
         <!-- Popper js -->
         <script src="{{asset('contents/website')}}/js/popper.js"></script>

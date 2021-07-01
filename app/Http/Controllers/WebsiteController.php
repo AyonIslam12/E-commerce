@@ -27,4 +27,9 @@ class WebsiteController extends Controller
     public function contact(){
         return \view('website.ecommerce.pages.contact');
     }
+
+    public function vue()
+    {
+        return view('vue');
+    }
 }
