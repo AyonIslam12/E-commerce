@@ -22,6 +22,9 @@ class product extends Model
     public function brand_info(){
         return $this->belongsTo(Brand::class,'brand_id','id');
     }
+    public function creator_info(){
+        return $this->belongsTo('App\Models\User','creator','id');
+    }
 
     public function category()
     {
@@ -32,6 +35,10 @@ class product extends Model
         return $this->belongsToMany(SubCategory::class)->withTimestamps();
     }
 
+    public function main_category_info()
+    {
+        return $this->belongsTo('App\Models\MainCategory');
+    }
     public function main_category()
     {
         return $this->belongsToMany('App\Models\MainCategory')->withTimestamps();

@@ -25,7 +25,7 @@
         </div>
         <div class="card-footer d-flex justify-content-center">
             <a class="btn btn-outline-info btn-sm mr-1" href="{{ route('product.show',$product->id) }}">View</a>
-            <a class="btn btn-outline-success btn-sm mr-1" href="">Edit</a>
+            <a class="btn btn-outline-success btn-sm mr-1" href="{{ route('product.edit',$product->id) }}">Edit</a>
             <a class="btn btn-outline-danger btn-sm delete_btn" href="{{ route('product.destroy',$product->id) }}" data-parent=".admin_product_body">Delete</a>
         </div>
     </div>

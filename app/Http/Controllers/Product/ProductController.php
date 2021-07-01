@@ -100,7 +100,7 @@ class ProductController extends Controller
             'tax' => ['required'],
             'expiration_date' => ['required'],
             'stock' => ['required'],
-            'alert_quantity' => ['required'],
+            'minimum_amount' => ['required'],
             'description' => ['required'],
             'features' => ['required'],
             'thumb_image' => ['required'],
@@ -117,7 +117,7 @@ class ProductController extends Controller
         $product->stock = $request->stock;
         $product->discount = $request->discount;
         $product->expiration_date = $request->expiration_date;
-        $product->minimum_amount = $request->alert_quantity;
+        $product->minimum_amount = $request->minimum_amount;
         $product->free_delivery = $request->free_delivery;
         $product->description = $request->description;
         $product->features = $request->features;
@@ -192,7 +192,42 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product=product::find($id);
+
+        $brands = Brand::where('status', 1)->get();
+        $colors = Color::where('status', 1)->get();
+        $sizes = Size::where('status', 1)->get();
+        $units = Unit::where('status', 1)->get();
+        $writers = Writer::where('status', 1)->get();
+        $publication = Publication::where('status', 1)->get();
+        $vendors = Vendor::where('status', 1)->get();
+        $status = Status::where('status', 1)->get();
+
+        $main_categories = MainCategory::where('status', 1)->get();
+        $latest_maincategory_id = $product->main_category()->first() ? $product->main_category()->first()->id : MainCategory::where('status', 1)->first()->id;
+
+        $categories = Category::where('status', 1)->where('main_category_id', $latest_maincategory_id)->latest()->get();
+        $latest_category_id = Category::where('status', 1)->where('main_category_id', $latest_maincategory_id)->first()->id;
+
+        $sub_categories = SubCategory::where('status', 1)
+            ->where('main_category_id', $latest_maincategory_id)
+            ->where('category_id', $latest_category_id)
+            ->latest()->get();
+        return \view('admin.pages.product.edit',\compact(
+                    'product',
+                    'brands',
+                    'colors',
+                    'sizes',
+                    'units',
+                    'main_categories',
+                    'categories',
+                    'sub_categories',
+                    'writers',
+                    'publication',
+                    'vendors',
+                    'status'
+
+                ));
     }
 
     /**
@@ -202,9 +237,89 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,product $product)
     {
-        //
+        $this->validate($request, [
+            'product_name' => ['required'],
+            'brand_id' => ['required'],
+            'product_main_category_id' => ['required'],
+            'category_id' => ['required'],
+            'sub_category_id' => ['required'],
+            'color_id' => ['required'],
+            'size_id' => ['required'],
+            'unit_id' => ['required'],
+            'vendor_id' => ['required'],
+            'price' => ['required'],
+            'discount' => ['required'],
+            'tax' => ['required'],
+            'expiration_date' => ['required'],
+            'stock' => ['required'],
+            'minimum_amount' => ['required'],
+            'description' => ['required'],
+            'features' => ['required'],
+            'thumb_image' => ['required'],
+            'related_images' => ['required'],
+            'status' => ['required'],
+        ]);
+        $product = new product();
+        $product->name = $request->product_name;
+        $product->brand_id = $request->brand_id;
+        $product->tax = $request->tax;
+        $product->price = $request->price;
+        $product->sku = '';
+        $product->stock = $request->stock;
+        $product->discount = $request->discount;
+        $product->expiration_date = $request->expiration_date;
+        $product->minimum_amount = $request->minimum_amount;
+        $product->free_delivery = $request->free_delivery;
+        $product->description = $request->description;
+        $product->features = $request->features;
+        $product->thumb_image = $request->thumb_image;
+        $product->status = $request->status;
+        $product->creator = Auth::user()->id;
+        $product->save();
+        if ($request->has('product_main_category_id')) {
+            $product->main_category()->sync($request->product_main_category_id);
+        }
+
+        if ($request->has('category_id')) {
+            $product->category()->sync($request->category_id);
+        }
+
+        if ($request->has('sub_category_id')) {
+            $product->sub_category()->sync($request->sub_category_id);
+        }
+
+        if ($request->has('writer_id')) {
+            $product->writer()->sync($request->writer_id);
+        }
+
+        if ($request->has('publication_id')) {
+            $product->publication()->sync($request->publication_id);
+        }
+
+        if ($request->has('color_id')) {
+            $product->color()->sync($request->color_id);
+        }
+
+        if ($request->has('size_id')) {
+            $product->size()->sync($request->size_id);
+        }
+
+        if ($request->has('unit_id')) {
+            $product->unit()->sync($request->unit_id);
+        }
+
+        if ($request->has('related_images')) {
+            $product->image()->sync(json_decode($request->related_images));
+        }
+
+        if ($request->has('vendor_id')) {
+            $product->vendor()->sync($request->vendor_id);
+        }
+        return Product::where('id', $product->id)->with(['category', 'sub_category', 'main_category', 'color', 'image', 'publication', 'size', 'unit', 'vendor', 'writer'])
+        ->latest()->first();
+        \dd($request->all());
     }
 
     /**

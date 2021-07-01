@@ -8,9 +8,10 @@ $(function () {
                 url: $(this).attr("href"),
                 type: "delete",
                 success: (res) => {
-                    $(this).parents($(this).data('parent')).remove();
+
                     $(this).parents("tr").remove();
                     $(this).parents("li").remove();
+                    $(this).parents($(this).data('parent')).remove();
 
                     toaster('success','Data Deleted Successfully');
                 },
@@ -80,6 +81,7 @@ $(function () {
             data: formData,
             success: (res) => {
                 $(".preloader").hide();
+                //$('.product_update_form select').val('').trigger("change");
                 toaster('success','Data Updated Successfully');
             },
             error: (err) => {

@@ -114,11 +114,11 @@ function( ){
     Route::resource('publication','PublicationController');
     Route::resource('vendor','VendorController');
 
-    Route::get('/get-all-category-selected-by-main-category/{main_category_id}',[CategoryController::class,'get_category_by_main_category'])->name('get_all_category_selected_by_main_category');
+    Route::get('/get-all-category-selected-by-main-category/{main_category_id}',[CategoryController::class,'get_category_by_main_category'])->name('get_all_cateogory_selected_by_main_category');
     Route::get('/get-all-sub-cateogory-selected-by-category/{category_id}',[CategoryController::class,'get_sub_category_by_category'])->name('get_all_sub_category_by_category');
 //Geting json data for
-   /*  Route::get('/get-all-main-category-josn', [MainCategoryController::class,'get_main_category_json'])->name('get_main_category_json');
-    Route::get('/get-all-category-josn', 'CategoryController@get_category_json')->name('get_category_json'); */
+    Route::get('/get-all-main-category-josn', [MainCategoryController::class,'get_main_category_json'])->name('get_main_category_json');
+    Route::get('/get-all-category-josn', 'CategoryController@get_category_json')->name('get_category_json');
 });
 
 Route::group([
