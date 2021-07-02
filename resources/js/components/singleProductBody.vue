@@ -33,7 +33,7 @@
                 </ul>
                 <span>$ {{ product.price }}</span>
                 <div>
-                    <button type="button" class="btn btn-outline-success btn-sm mt-4" @click="add_product_to_pos_list(product)">Add To List</button>
+                    <button type="button" class="btn btn-dark btn-sm mt-4" @click="add_product_to_pos_list(product)">Add To List</button>
                 </div>
             </div>
         </div>

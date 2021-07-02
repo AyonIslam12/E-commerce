@@ -71,6 +71,29 @@ class WebsiteController extends Controller
 
         return $product;
     }
+    public function search_product_json(Request $request,  $key)
+    {
+        $collection = product::active()
+        ->where('name', $key)
+        ->orWhere('code', $key)
+        ->orWhere('price', $key)
+        ->orWhere('discount', $key)
+        ->orWhere('name','LIKE','%'. $key . '%')
+        ->with([
+            'category',
+            'sub_category',
+            'main_category',
+            'color', 'image',
+            'publication',
+            'size', 'unit',
+            'vendor',
+            'writer',
+        ])->orderBy('id','DESC')->paginate(8);
+
+        return $collection;
+
+
+    }
 
     public function vue()
     {

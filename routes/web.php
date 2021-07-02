@@ -53,6 +53,7 @@ Route::group([
     Route::get('/latest-products-json', [WebsiteController::class,'latest_product_json'])->name('product_latest_product_json');
     Route::get('/show-product-json/{product}', [WebsiteController::class,'show_product_json'])->name('product_show_product_json');
     Route::get('/get-product-related-info-json/{product}', [WebsiteController::class,'get_product_related_info_json'])->name('product_get_product_related_info_json');
+    Route::get('/search-product-json/{key}',[WebsiteController::class,'search_product_json'])->name('product_search_product_json');
 
 });
 
