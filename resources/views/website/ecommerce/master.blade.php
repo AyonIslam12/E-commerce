@@ -43,23 +43,25 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- header start -->
+        <div id="app">
+            <!-- header start -->
         <div class="main-wrapper box-shadow">
-@include('website.ecommerce.partials.header')
-            <!-- slider area start -->
-            @yield('content')
-             <!-- Body area end -->
+            @include('website.ecommerce.partials.header')
+                        <!-- slider area start -->
+                        @yield('content')
+                         <!-- Body area end -->
 
-    <!-- brand-area start -->
-    @include('website.ecommerce.homeInclude.brand')
-    <!-- brand-area end -->
-    <!-- order-area start -->
-    @include('website.ecommerce.homeInclude.order')
-    <!-- order-area end -->
+                <!-- brand-area start -->
+                @include('website.ecommerce.homeInclude.brand')
+                <!-- brand-area end -->
+                <!-- order-area start -->
+                @include('website.ecommerce.homeInclude.order')
+                <!-- order-area end -->
 
-            <!-- footer-area start -->
-@include('website.ecommerce.partials.footer')
-            <!-- footer-area end -->
+                        <!-- footer-area start -->
+            @include('website.ecommerce.partials.footer')
+                        <!-- footer-area end -->
+             </div>
         </div>
 
         <!-- Placed js at the end of the document so the pages load faster -->

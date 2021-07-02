@@ -19,14 +19,55 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('singleProductBody', require('./components/singleProductBody.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+if (document.getElementById('app')){
+    const app = new Vue({
+        el: "#app",
+        created: function(){
+            $.get('/json/latest-products-json',(res)=>{
+                console.log(res);
+                this.products = res.data;
+            });
+        },
+        data: function(){
+            return{
+                products:[]
+            }
+        },
+        methods:{
+            add_product_to_pos_list: function(product){
+                console.log(product.name)
+            }
+        }
+    });
+}
+/* if(document.getElementById('test')){
+    const app = new Vue({
+        el: "#test",
+        data: function(){
+            return{
+                name: 'hlw',
+                a: 90,
+                b: 30,
+                add: '',
+                div: '',
+                sub: '',
+            }
+        },
+        methods:{
+            calculate: function(){
+                this.add = +(this.a) + +(this.b);
+                this.div = +(this.a) / +(this.b);
+                this.sub = +(this.a) - +(this.b);
 
-const app = new Vue({
-    el: '#app',
-});
+            }
+        }
+    });
+} */

@@ -45,6 +45,17 @@ Route::get('/your-wishlist',[WebsiteController::class,'wishlist'])->name('websit
 Route::get('/contact-us',[WebsiteController::class,'contact'])->name('website_contact');
 Route::get('/learn', [WebsiteController::class,'vue'])->name('website_vue');
 
+//for vue jseon route
+Route::group([
+    'prefix' => 'json',
+], function () {
+
+    Route::get('/latest-products-json', [WebsiteController::class,'latest_product_json'])->name('product_latest_product_json');
+    Route::get('/show-product-json/{product}', [WebsiteController::class,'show_product_json'])->name('product_show_product_json');
+    Route::get('/get-product-related-info-json/{product}', [WebsiteController::class,'get_product_related_info_json'])->name('product_get_product_related_info_json');
+
+});
+
 Route::group([
     'prefix' => 'admin',
     'middleware' => 'auth',
