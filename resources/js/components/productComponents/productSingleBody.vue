@@ -3,10 +3,14 @@
     <div class="row">
         <div class="col-md-3" v-for="product in get_product_list.data " :key="product.id">
             <div class="product-wrapper bl">
-                <div class="product-img">
+                <div class="product-img ">
+                    <div class="discount_amount p-2">
+                        <span class="rounded-circle bg-dark text-light p-2 text-center ">{{product.discount}}%</span>
+
+                    </div>
                     <a href="#">
                           <img :src="'/'+product.thumb_image" alt="" class="primary" />
-                        <img :src="'/'+product.image[1].name" alt="" class="secondary" />
+                          <img :src="'/'+product.image[1].name" alt="" class="secondary" />
                     </a>
                     <div class="product-icon c-fff home3-hover-bg">
                         <ul>
@@ -34,7 +38,13 @@
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                     </ul>
-                    <span>$ {{product.price}}</span>
+                <div class="d-flex justify-content-between" style="width:120px;">
+                        <span v-if="product.discount_price > 0 && product.price > product.discount_price">
+                            $<del class="text-danger"> {{product.price}}</del>
+                        </span>
+                        <span v-if="product.discount_price>0">$ {{product.discount_price}}</span>
+                </div>
+
                 </div>
             </div>
         </div>

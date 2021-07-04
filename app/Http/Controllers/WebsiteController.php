@@ -72,7 +72,7 @@ class WebsiteController extends Controller
         $product['vendor'] = $product->vendor()->get();
         $product['writer'] = $product->writer()->get();
 
-        // echo $product->discount_price;
+        //echo $product->discount_price;
         return $product;
     }
 
@@ -103,7 +103,6 @@ class WebsiteController extends Controller
         ])->orderBy('id','DESC')->paginate(8);
 
         return $collection;
-
 
     }
 

@@ -1845,13 +1845,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -1968,75 +1961,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-
+//import { mapGetters, mapActions, mapMutations } from 'vuex';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['selected_product'],
   created: function created() {
-    var _this = this;
-
     if (typeof this.selected_product == "string") {
       this.product = JSON.parse(this.selected_product);
       this.product_show_image = this.product.thumb_image;
     } else {
       this.product = this.selected_product;
-      this.product_show_image = this.selected_product && this.product.thumb_image;
     }
-
-    this.$watch('get_product_details', function (newVal, oldVal) {
-      _this.product = _this.get_product_details;
-      _this.product_show_image = _this.product.thumb_image;
-    });
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)([
-    /* 'set_carts' */
-  ])), {}, {
-    add_to_cart: function add_to_cart(product) {
-      var cart = {
-        qty: this.qty,
-        color: this.color,
-        size: this.size,
-        product_price: this.get_product_price,
-        product: product
-      };
-      this.set_carts(cart);
-      this.qty = 0;
-      this.color = '';
-      this.size = '';
-    }
-  }),
   data: function data() {
     return {
-      product_show_image: '',
+      product_show_image: this.selected_product.thumb_image,
       product: [],
       qty: 0,
       color: '',
       size: '',
       price: ''
     };
-  },
-  watch: {
-    get_selected_cart: {
-      handler: function handler(val) {
-        this.qty = this.get_selected_cart.qty;
-        this.color = this.get_selected_cart.color;
-        this.size = this.get_selected_cart.size;
-      },
-      deep: true
-    }
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['get_product_details'
-  /* 'get_selected_cart', */
-  ])), {}, {
-    get_product_price: function get_product_price() {
-      if (this.product.discount_price > 0) {
-        return this.product.discount_price;
-      } else {
-        return this.product.price;
-      }
-    }
-  })
+  }
 });
 
 /***/ }),
@@ -2059,6 +2004,16 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38669,13 +38624,15 @@ var render = function() {
                       staticStyle: { width: "120px" }
                     },
                     [
-                      _vm.product.discount_price > 0
+                      _vm.product.discount_price > 0 &&
+                      _vm.product.price > _vm.product.discount_price
                         ? _c("span", [
-                            _c("del", [
-                              _vm._v("$ " + _vm._s(_vm.product.price))
+                            _vm._v("\n                        $"),
+                            _c("del", { staticClass: "text-danger" }, [
+                              _vm._v(" " + _vm._s(_vm.product.price))
                             ])
                           ])
-                        : _c("span", [_vm._v(_vm._s(_vm.product.price))]),
+                        : _vm._e(),
                       _vm._v(" "),
                       _vm.product.discount_price > 0
                         ? _c("span", [
@@ -38862,26 +38819,12 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-12" }, [
-                      _c(
-                        "button",
-                        {
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.add_to_cart(_vm.product)
-                            }
-                          }
-                        },
-                        [_vm._v("Add to cart")]
-                      )
-                    ])
+                    _vm._m(1)
                   ])
                 ]
               ),
               _vm._v(" "),
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "product_meta" }, [
                 _c("b", [_vm._v("Code:")]),
@@ -38911,9 +38854,9 @@ var render = function() {
                   2
                 ),
                 _vm._v(" "),
-                _vm._m(2),
+                _vm._m(3),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(4)
               ])
             ]
           )
@@ -38936,6 +38879,14 @@ var staticRenderFns = [
       _c("li", [_c("i", { staticClass: "fa fa-star" })]),
       _vm._v(" "),
       _c("li", [_c("i", { staticClass: "fa fa-star" })])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12" }, [
+      _c("button", { attrs: { type: "button" } }, [_vm._v("Add to cart")])
     ])
   },
   function() {
@@ -39105,7 +39056,18 @@ var render = function() {
       _vm._l(_vm.get_product_list.data, function(product) {
         return _c("div", { key: product.id, staticClass: "col-md-3" }, [
           _c("div", { staticClass: "product-wrapper bl" }, [
-            _c("div", { staticClass: "product-img" }, [
+            _c("div", { staticClass: "product-img " }, [
+              _c("div", { staticClass: "discount_amount p-2" }, [
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      "rounded-circle bg-dark text-light p-2 text-center "
+                  },
+                  [_vm._v(_vm._s(product.discount) + "%")]
+                )
+              ]),
+              _vm._v(" "),
               _c("a", { attrs: { href: "#" } }, [
                 _c("img", {
                   staticClass: "primary",
@@ -39130,7 +39092,30 @@ var render = function() {
               _vm._v(" "),
               _vm._m(1, true),
               _vm._v(" "),
-              _c("span", [_vm._v("$ " + _vm._s(product.price))])
+              _c(
+                "div",
+                {
+                  staticClass: "d-flex justify-content-between",
+                  staticStyle: { width: "120px" }
+                },
+                [
+                  product.discount_price > 0 &&
+                  product.price > product.discount_price
+                    ? _c("span", [
+                        _vm._v("\n                            $"),
+                        _c("del", { staticClass: "text-danger" }, [
+                          _vm._v(" " + _vm._s(product.price))
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  product.discount_price > 0
+                    ? _c("span", [
+                        _vm._v("$ " + _vm._s(product.discount_price))
+                      ])
+                    : _vm._e()
+                ]
+              )
             ])
           ])
         ])
