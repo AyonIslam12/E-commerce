@@ -13,8 +13,20 @@ class WebsiteController extends Controller
     public function products(){
         return \view('website.ecommerce.pages.products.products');
     }
-    public function productDetails(){
-        return \view('website.ecommerce.pages.products.product_details');
+    public function productDetails(product $product){
+
+        $product['discount_price'] = HelperController::discount_price($product->price, $product->discount, $product->expiration_date);
+        $product['image'] = $product->image()->get();
+        $product['category'] = $product->category()->get();
+        $product['sub_category'] = $product->sub_category()->get();
+        $product['main_category'] = $product->main_category()->get();
+        $product['color'] = $product->color()->get();
+        $product['publication'] = $product->publication()->get();
+        $product['size'] = $product->size()->get();
+        $product['unit'] = $product->unit()->get();
+        $product['vendor'] = $product->vendor()->get();
+        $product['writer'] = $product->writer()->get();
+        return \view('website.ecommerce.pages.products.product_details',\compact('product'));
     }
     public function cart(){
         return \view('website.ecommerce.pages.products.cart');
@@ -42,7 +54,7 @@ class WebsiteController extends Controller
                 'vendor',
                 'writer',
             ])
-            ->orderBy('id', 'DESC')->paginate(8);
+            ->orderBy('id', 'DESC')->paginate(12);
         return $collection;
     }
 
@@ -98,5 +110,9 @@ class WebsiteController extends Controller
     public function vue()
     {
         return view('vue');
+    }
+    public function learnVue()
+    {
+        return view('learn-vue');
     }
 }

@@ -38,12 +38,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/',[WebsiteController::class,'index'])->name('website_home');
 Route::get('/products',[WebsiteController::class,'products'])->name('website_products');
-Route::get('/product-details',[WebsiteController::class,'productDetails'])->name('website_products_details');
+Route::get('/product-details/{product}',[WebsiteController::class,'productDetails'])->name('website_products_details');
 Route::get('/cart',[WebsiteController::class,'cart'])->name('website_cart');
 Route::get('/checkout',[WebsiteController::class,'checkout'])->name('website_checkout');
 Route::get('/your-wishlist',[WebsiteController::class,'wishlist'])->name('website_wishlist');
 Route::get('/contact-us',[WebsiteController::class,'contact'])->name('website_contact');
 Route::get('/learn', [WebsiteController::class,'vue'])->name('website_vue');
+
 
 //for vue jseon route
 Route::group([

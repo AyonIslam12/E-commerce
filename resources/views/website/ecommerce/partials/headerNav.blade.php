@@ -6,9 +6,6 @@
         <li class="{{ request()->is('products')? 'active2' : '' }}">
              <a href="{{ route('website_products') }}">Products </a>
         </li>
-        <li class="{{ request()->is('product-details')? 'active2' : '' }}">
-             <a href="{{ route('website_products_details') }}">Product Details </a>
-        </li>
         <li class="{{ request()->is('cart')? 'active2' : '' }}">
              <a href="{{ route('website_cart') }}">Cart </a>
         </li>

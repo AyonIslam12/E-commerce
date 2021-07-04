@@ -43,7 +43,7 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div id="app">
+
             <!-- header start -->
         <div class="main-wrapper box-shadow">
             @include('website.ecommerce.partials.header')
@@ -61,7 +61,7 @@
                         <!-- footer-area start -->
             @include('website.ecommerce.partials.footer')
                         <!-- footer-area end -->
-             </div>
+
         </div>
 
         <!-- Placed js at the end of the document so the pages load faster -->
