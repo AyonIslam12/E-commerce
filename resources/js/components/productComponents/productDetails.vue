@@ -115,29 +115,42 @@
 </template>
 
 <script>
-//import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 export default {
     props: ['selected_product'],
     created: function(){
-        if(typeof this.selected_product == "string"){
+       if(typeof this.selected_product == "string"){
             this.product = JSON.parse(this.selected_product);
             this.product_show_image = this.product.thumb_image;
         }else{
             this.product = this.selected_product;
+            this.product_show_image = this.selected_product && this.product.thumb_image;
         }
-
+        this.$watch('get_product_details',(newVal, oldVal)=>{
+            this.product = this.get_product_details;
+            this.product_show_image = this.product.thumb_image;
+        })
     },
 
     data: function(){
         return {
-            product_show_image: this.selected_product.thumb_image,
+            product_show_image: '',
             product: [],
             qty: 0,
             color: '',
             size: '',
             price: '',
+
+
       }
     },
+
+     computed: {
+    ...mapGetters([
+        'get_product_details',
+    ]),
+}
+
 }
 </script>
 

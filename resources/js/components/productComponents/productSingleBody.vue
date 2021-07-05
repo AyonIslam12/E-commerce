@@ -4,16 +4,15 @@
         <div class="col-md-3" v-for="product in get_product_list.data " :key="product.id">
             <div class="product-wrapper bl">
                 <div class="product-img ">
-                    <div class="discount_amount p-2">
+                    <div class="discount_amount p-2" >
                         <span class="rounded-circle bg-dark text-light p-2 text-center ">{{product.discount}}%</span>
-
                     </div>
                     <a href="#">
                           <img :src="'/'+product.thumb_image" alt="" class="primary" />
                           <img :src="'/'+product.image[1].name" alt="" class="secondary" />
                     </a>
-                    <div class="product-icon c-fff home3-hover-bg">
-                        <ul>
+                    <div class="product-icon c-fff home3-hover-bg ">
+                        <ul >
                             <li>
                                 <a href="#" data-toggle="tooltip" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
                             </li>
@@ -24,7 +23,7 @@
                                 <a href="#" data-toggle="tooltip" title="Compare"><i class="fa fa-comments"></i></a>
                             </li>
                             <li>
-                                <a href="#" data-toggle="tooltip" title="Accumsan eli"><i class="fa fa-search"></i></a>
+                                <a href="#" data-toggle="modal" @click="showModal(product)" title="Accumsan eli" data-orginal-title="view product details"><i class="fa fa-search"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -54,7 +53,7 @@
 </template>
 
 <script>
-import { mapGetters,mapActions } from "vuex";
+import { mapGetters,mapActions, mapMutations } from "vuex";
 export default {
     created: function(){
         this.fetch_product_list();
@@ -63,6 +62,14 @@ export default {
         ...mapActions([
             'fetch_product_list'
     ]),
+        ...mapMutations([
+            'set_product_details'
+    ]),
+    showModal: function(product_details){
+        this.set_product_details(product_details);
+        $('#productViewModal').modal('show');
+        console.log(product_details);
+    }
     },
 
  computed: {

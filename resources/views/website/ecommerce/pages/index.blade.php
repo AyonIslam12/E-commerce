@@ -10,7 +10,7 @@ Ecommerce-Home
 
 @include('website.ecommerce.homeInclude.slider')
 
-<div class="all-product-area mtb-45">
+<div class="all-product-area mtb-45" id="productList">
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-lg-3 col-md-12 col-12">
@@ -46,7 +46,7 @@ Ecommerce-Home
                         </div>
                     </div>
                     <div class="tab-content">
-                        <div id="productList" style="padding: 0px 15px;">
+                        <div style="padding: 0px 15px;">
                             <product-single-body></product-single-body>
                         </div>
                     </div>
@@ -137,6 +137,25 @@ Ecommerce-Home
                 <!-- mostviewed-area end -->
             </div>
             <!-- product-area end -->
+        </div>
+       {{-- Modal --}}
+        <div class="modal fade"  id="productViewModal" style="z-index: 99999999999;" tabindex="-1" aria-labelledby="productViewModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productViewModalLabel">Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <product-details></product-details>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                     {{--    <button type="button" class="btn btn-primary">Save changes</button> --}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

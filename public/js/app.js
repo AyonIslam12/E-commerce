@@ -1845,6 +1845,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1961,27 +1968,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//import { mapGetters, mapActions, mapMutations } from 'vuex';
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['selected_product'],
   created: function created() {
+    var _this = this;
+
     if (typeof this.selected_product == "string") {
       this.product = JSON.parse(this.selected_product);
       this.product_show_image = this.product.thumb_image;
     } else {
       this.product = this.selected_product;
+      this.product_show_image = this.selected_product && this.product.thumb_image;
     }
+
+    this.$watch('get_product_details', function (newVal, oldVal) {
+      _this.product = _this.get_product_details;
+      _this.product_show_image = _this.product.thumb_image;
+    });
   },
   data: function data() {
     return {
-      product_show_image: this.selected_product.thumb_image,
+      product_show_image: '',
       product: [],
       qty: 0,
       color: '',
       size: '',
       price: ''
     };
-  }
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['get_product_details']))
 });
 
 /***/ }),
@@ -2058,13 +2074,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
     this.fetch_product_list();
   },
-  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['fetch_product_list'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['fetch_product_list'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)(['set_product_details'])), {}, {
+    showModal: function showModal(product_details) {
+      this.set_product_details(product_details);
+      $('#productViewModal').modal('show');
+      console.log(product_details);
+    }
+  }),
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['get_product_list']))
 });
 
@@ -39080,7 +39101,35 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _vm._m(0, true)
+              _c("div", { staticClass: "product-icon c-fff home3-hover-bg " }, [
+                _c("ul", [
+                  _vm._m(0, true),
+                  _vm._v(" "),
+                  _vm._m(1, true),
+                  _vm._v(" "),
+                  _vm._m(2, true),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href: "#",
+                          "data-toggle": "modal",
+                          title: "Accumsan eli",
+                          "data-orginal-title": "view product details"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.showModal(product)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-search" })]
+                    )
+                  ])
+                ])
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "product-content home3-hover" }, [
@@ -39090,7 +39139,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(1, true),
+              _vm._m(3, true),
               _vm._v(" "),
               _c(
                 "div",
@@ -39129,56 +39178,38 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "product-icon c-fff home3-hover-bg" }, [
-      _c("ul", [
-        _c("li", [
-          _c(
-            "a",
-            {
-              attrs: {
-                href: "#",
-                "data-toggle": "tooltip",
-                title: "Add to cart"
-              }
-            },
-            [_c("i", { staticClass: "fa fa-shopping-cart" })]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "a",
-            {
-              attrs: { href: "#", "data-toggle": "tooltip", title: "Wishlist" }
-            },
-            [_c("i", { staticClass: "fa fa-heart-o" })]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "a",
-            {
-              attrs: { href: "#", "data-toggle": "tooltip", title: "Compare" }
-            },
-            [_c("i", { staticClass: "fa fa-comments" })]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "a",
-            {
-              attrs: {
-                href: "#",
-                "data-toggle": "tooltip",
-                title: "Accumsan eli"
-              }
-            },
-            [_c("i", { staticClass: "fa fa-search" })]
-          )
-        ])
-      ])
+    return _c("li", [
+      _c(
+        "a",
+        {
+          attrs: { href: "#", "data-toggle": "tooltip", title: "Add to cart" }
+        },
+        [_c("i", { staticClass: "fa fa-shopping-cart" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        { attrs: { href: "#", "data-toggle": "tooltip", title: "Wishlist" } },
+        [_c("i", { staticClass: "fa fa-heart-o" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        { attrs: { href: "#", "data-toggle": "tooltip", title: "Compare" } },
+        [_c("i", { staticClass: "fa fa-comments" })]
+      )
     ])
   },
   function() {

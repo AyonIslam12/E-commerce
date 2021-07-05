@@ -15,6 +15,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
         el: "#productList",
         store,
 
+
     });
 }
 
