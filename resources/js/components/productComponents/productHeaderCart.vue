@@ -3,7 +3,7 @@
        <div class="cart">
         <i class="icofont icofont-bag"></i>
         <a href="#">
-           4 Items - <strong>$500.00 </strong>
+          {{get_carts.length}} Items - <strong>$ {{get_sub_total}}</strong>
             <i class="icofont icofont-rounded-down"></i>
         </a>
     </div>
@@ -18,17 +18,24 @@
                     </div>
                     <div class="cart-content">
                         <a href="#">{{cart.product.name}}</a>
-                        <a href="#" class="pull-right cart-remove"> <i class="fa fa-times"></i></a>
-                        <span>{{ cart.qty }} x {{cart.product.discount_price || cart.product.price}}</span>
+
+                        <a href="#" class="pull-right cart-remove">
+                            <i class="fa fa-times" @click="remove_product_form_carts(cart)"></i>
+                        </a>
+                        <div class="d-flex justify-content-between">
+                        <span>{{ cart.qty }} x ${{ cart.product.discount_price || cart.product.price}} </span>
+                        <span class="pr-2">$ {{(cart.qty * cart.product.discount_price || cart.product.price)}}</span>
+
+                        </div>
                     </div>
                 </div>
                 <div class="total mt-10">
                     <span class="pull-left">Subtotal:</span>
-                    <span class="pull-right">$200.00</span>
+                    <span class="pull-right">$ {{get_sub_total}}</span>
                 </div>
                 <div class="cart-btn mb-20">
-                    <a href="#">view cart</a>
-                    <a href="#">Checkout</a>
+                    <a href="/cart">view cart</a>
+                    <a href="/checkout">Checkout</a>
                 </div>
             </div>
         </li>
@@ -39,9 +46,19 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 export default {
-      computed: {
+    methods:{
+    ...mapMutations([
+        'remove_form_carts',
+    ]),
+      remove_product_form_carts: function(cart){
+          this.remove_form_carts(cart);
+      },
+
+    },
+    computed: {
     ...mapGetters([
         'get_carts',
+        'get_sub_total',
 
     ]),
  }

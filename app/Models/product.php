@@ -15,7 +15,7 @@ class product extends Model
     public function getDiscountPriceAttribute(){
         $today_date = Carbon::now()->format("Y-m-d");
         if($this->expiration_date > $today_date){
-            $discount_price = $this->price - ($this->price * ($this->discount / 100));
+            $discount_price = $this->price - ( $this->price * ( $this->discount / 100 ));
             return $this->attributes['discount_price'] = \ceil($discount_price);
         }else{
             return 0;

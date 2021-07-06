@@ -6,7 +6,7 @@ Shopping-Cart
 @stop
 @section('content')
 
-<div class="cart-main-container shop-bg">
+<div class="cart-main-container shop-bg" id="productCartDetails">
     <div class="cart-area">
         <div class="container">
             <div class="row">
@@ -21,111 +21,15 @@ Shopping-Cart
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" >
                 <div class="col-12">
                     <div class="account-title mtb-20 text-center">
                         <h1>Cart</h1>
                     </div>
                 </div>
-                <div class="col-xl-12 col-lg-12 col-md-12 col-12">
-                    <div class="cart-table mb-50 bg-fff">
-                        <form action="#">
-                            <div class="table-content table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="product-remove"></th>
-                                            <th class="product-thumbnail"></th>
-                                            <th class="product-name">Product</th>
-                                            <th class="product-price">Price</th>
-                                            <th class="product-quantity">Quantity</th>
-                                            <th class="product-subtotal">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="cart-item">
-                                            <td class="product-remove">
-                                                <a href="#" class="remove" title="Remove this item">x</a>
-                                            </td>
-                                            <td class="product-thumbnail">
-                                                <a href="#">
-                                                    <img src="{{ asset('contents/website') }}/img/cart/1.jpg" alt="">
-                                                </a>
-                                            </td>
-                                            <td class="product-name">
-                                                <a href="#">Lorem nec augue </a>
-                                            </td>
-                                            <td class="product-price">
-                                                <span class="amounte">$300.00</span>
-                                            </td>
-                                            <td class="product-quantity">
-                                                <input value="1" type="number">
-                                            </td>
-                                            <td class="product-subtotal">
-                                                <span class="sub-total">$300.00</span>
-                                            </td>
-                                        </tr>
-                                        <tr class="cart-item">
-                                            <td class="product-remove">
-                                                <a href="#" class="remove" title="Remove this item">x</a>
-                                            </td>
-                                            <td class="product-thumbnail">
-                                                <a href="#">
-                                                    <img src="{{ asset('contents/website') }}/img/cart/2.jpg" alt="">
-                                                </a>
-                                            </td>
-                                            <td class="product-name">
-                                                <a href="#">Adipiscing cursus eu  </a>
-                                            </td>
-                                            <td class="product-price">
-                                                <span class="amounte">$600.00</span>
-                                            </td>
-                                            <td class="product-quantity">
-                                                <input value="10" type="number">
-                                            </td>
-                                            <td class="product-subtotal">
-                                                <span class="sub-total">$600.00</span>
-                                            </td>
-                                        </tr>
-                                        <tr class="cart-item">
-                                            <td class="product-remove">
-                                                <a href="#" class="remove" title="Remove this item">x</a>
-                                            </td>
-                                            <td class="product-thumbnail">
-                                                <a href="#">
-                                                    <img src="{{ asset('contents/website') }}/img/cart/3.jpg" alt="">
-                                                </a>
-                                            </td>
-                                            <td class="product-name">
-                                                <a href="#">Cras nec nisl ut erat  </a>
-                                            </td>
-                                            <td class="product-price">
-                                                <span class="amounte">$165.00</span>
-                                            </td>
-                                            <td class="product-quantity">
-                                                <input value="48" type="number">
-                                            </td>
-                                            <td class="product-subtotal">
-                                                <span class="sub-total">$165.00</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="6" class="actions clear">
-                                                <div class="coupon mb-10 floatleft">
-                                                    <input name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code" type="text">
-                                                    <input class="button" name="apply_coupon" value="Apply Coupon" type="submit">
-                                                </div>
-                                                <div class="floatright mb-10">
-                                                    <input class="button cursor-not" name="update_cart" value="Update Cart" type="submit">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+               <div class="col-12">
+                <cart-details></cart-details>
+               </div>
             </div>
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-12">

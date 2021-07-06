@@ -32,6 +32,7 @@
                             $<del class="text-danger"> {{product.price}}</del>
                         </span>
                         <span v-if="product.discount_price>0">$ {{product.discount_price}}</span>
+
                 </div>
                 </div>
                 <div>
@@ -140,6 +141,7 @@ export default {
         qty:  this.qty,
         color: this.color,
         size: this.size,
+        product_price: this.get_product_price,
         product: product,
     }
         this.set_carts(cart);
@@ -168,7 +170,16 @@ export default {
     ...mapGetters([
         'get_product_details',
 
+
     ]),
+    get_product_price: function(){
+        if(this.product.discount_price >0){
+            return this.product.discount_price;
+        }else{
+            return product.price;
+        }
+
+    }
 }
 
 }
