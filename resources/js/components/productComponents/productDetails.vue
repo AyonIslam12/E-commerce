@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="button">Add to cart</button>
+                            <button @click.prevent="add_to_cart(product)" type="button">Add to cart</button>
                         </div>
                     </form>
                 </div>
@@ -131,6 +131,27 @@ export default {
             this.product_show_image = this.product.thumb_image;
         })
     },
+    methods: {
+        ...mapMutations([
+            'set_carts',
+    ]),
+    add_to_cart: function(product){
+        let cart ={
+        qty:  this.qty,
+        color: this.color,
+        size: this.size,
+        product: product,
+    }
+        this.set_carts(cart);
+        this.qty = 0;
+        this.color = '';
+        this.size = '';
+
+
+
+    },
+
+    },
 
     data: function(){
         return {
@@ -140,14 +161,13 @@ export default {
             color: '',
             size: '',
             price: '',
-
-
       }
     },
 
      computed: {
     ...mapGetters([
         'get_product_details',
+
     ]),
 }
 
