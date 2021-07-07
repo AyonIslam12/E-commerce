@@ -30,7 +30,7 @@ const mutations = {
     set_carts: function(state,cart){
         let temp_cart = state.carts.filter((item)=>item.product.id != cart.product.id);
         state.carts = temp_cart;
-        state.carts.push(cart);
+        state.carts.unshift(cart);
         this.commit('calculate_cart_total');
     },
 
@@ -39,14 +39,18 @@ const mutations = {
         state.carts = temp_cart;
         this.commit('calculate_cart_total');
     },
-
+    change_cart_qty: function(state,product_info){
+        let product = state.carts.find((item)=>{
+            return item.product.id === product_info.product_id;
+        });
+        product.qty = product_info.qty;
+        this.commit('calculate_cart_total');
+    },
     calculate_cart_total: function(state,cart){
         state.sub_total  = state.carts.reduce((total,item)=>total += (item.product_price * item.qty),0);
 
     },
-    change_cart_qty: function(state,product_info){
-        console.log(product_info);
-    }
+
 
 }
 

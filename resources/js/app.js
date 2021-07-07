@@ -10,7 +10,8 @@ Vue.component('productSingleBody', require('./components/productComponents/produ
 Vue.component('productDetails', require('./components/productComponents/productDetails.vue').default);
 Vue.component('productHeaderCart', require('./components/productComponents/productHeaderCart.vue').default);
 Vue.component('cartDetails', require('./components/productComponents/cartDetails.vue').default);
-//Vue.component('pagination', require('laravel-vue-pagination'));
+import { mapGetters, mapActions, mapMutations } from 'vuex';
+Vue.component('pagination', require('laravel-vue-pagination'));
 
   if (document.getElementById("productList")) {
     const app = new Vue({
@@ -28,6 +29,13 @@ Vue.component('cartDetails', require('./components/productComponents/cartDetails
     const app = new Vue({
         el: "#productCartDetails",
         store,
+        computed: {
+            ...mapGetters([
+                'get_sub_total',
+
+            ]),
+         }
     });
+
 }
 

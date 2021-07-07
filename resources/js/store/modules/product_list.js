@@ -16,8 +16,8 @@ const getters = {
 
 //action
 const actions ={
-   fetch_product_list: function(state){
-        axios.get('/json/latest-products-json')
+   fetch_product_list: function(state,page=1){
+        axios.get('/json/latest-products-json?page='+page)
         .then((res)=>{
             this.commit('set_product_list',res.data);
         })

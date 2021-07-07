@@ -46,7 +46,17 @@
 
                 </div>
             </div>
+
         </div>
+         <div class="card m-3">
+            <div class="card-footer">
+                <pagination :show-disabled="true" :data="get_product_list" @pagination-change-page="fetch_product_list">
+                    <span slot="prev-nav">&lt; Previous</span>
+                    <span slot="next-nav">Next &gt;</span>
+                </pagination>
+            </div>
+        </div>
+
     </div>
 </div>
 
