@@ -37,6 +37,8 @@
 
         <!-- Modernizr JS -->
         <script src="{{asset('contents/website')}}/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+        <script src="https://js.stripe.com/v3/"></script>
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -94,5 +96,7 @@
         <script src="{{asset('contents/website')}}/js/plugins.js"></script>
         <!-- Main js file that contents all jQuery plugins activation. -->
         <script src="{{asset('contents/website')}}/js/main.js"></script>
+
+        @stack('custom_js')
     </body>
 </html>

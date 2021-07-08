@@ -18,18 +18,18 @@ class CreateOrderProductsTable extends Migration
             $table->integer('customer_id')->nullable();
             $table->integer('order_id')->nullable();
             $table->integer('product_id')->nullable();
-            $table->integer('product_code')->nullable();
-            $table->integer('product_name')->nullable();
+            $table->string('product_code',100)->nullable();
+            $table->string('product_name',100)->nullable();
             $table->integer('qty')->nullable();
             $table->integer('color')->nullable();
             $table->integer('size')->nullable();
             $table->integer('price')->nullable();
-            
+
             $table->string('creator',100)->nullable();
             $table->string('slug',100)->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
-        }); 
+        });
     }
 
     /**

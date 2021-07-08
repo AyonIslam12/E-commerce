@@ -4,25 +4,26 @@ import axios from "axios";
 const state = {
     sub_total: 0,
     carts: [],
+    selected_cart: {},
+    latest_saved_cart:{}
 }
 
 // get state
 const getters = {
     get_carts: state => state.carts,
     get_sub_total: state => state.sub_total,
-     /*get_selected_cart: state => state.selected_cart,
-    get_latest_saved_cart: state => state.latest_saved_cart, */
+    get_selected_cart: state => state.selected_cart,
+    get_latest_saved_cart: state => state.latest_saved_cart,
 }
 
 // actions
 const actions = {
-    /* fetch_latest_saved_cart: function(state){
+    fetch_latest_saved_cart: function(state){
         axios.get('/get_latest_checkout_information')
             .then((res)=>{
                 this.commit('save_latest_saved_cart',res.data);
             })
-
-    }, */
+    },
 }
 
 // mutators
@@ -33,7 +34,9 @@ const mutations = {
         state.carts.unshift(cart);
         this.commit('calculate_cart_total');
     },
-
+    set_selected_cart: function(state,cart){
+        state.selected_cart = cart;
+    },
     remove_form_carts: function(state,cart){
         let temp_cart = state.carts.filter((item)=>item.product.id != cart.product.id);
         state.carts = temp_cart;
@@ -50,6 +53,14 @@ const mutations = {
         state.sub_total  = state.carts.reduce((total,item)=>total += (item.product_price * item.qty),0);
 
     },
+    reset_cart: function(state){
+        state.sub_total= 0;
+        state.carts= [];
+        state.selected_cart= {};
+    },
+    save_latest_saved_cart: function(state,info){
+        state.latest_saved_cart = info;
+    }
 
 
 }

@@ -1947,14 +1947,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       _this.product_show_image = _this.product.thumb_image;
     });
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['remove_from_carts', 'change_cart_qty', 'set_product_details' //'set_selected_cart',
-  ])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['remove_from_carts', 'change_cart_qty', 'set_product_details', 'set_selected_cart'])), {}, {
     remove_product_form_carts: function remove_product_form_carts(cart) {
       this.remove_form_carts(cart);
     },
     showModal: function showModal(cart_details) {
-      // console.log(cart_details);
-      //this.set_selected_cart(cart_details);
+      this.set_selected_cart(cart_details);
       this.set_product_details(cart_details.product);
       $('#cartEditModal').modal('show');
     },
@@ -1967,6 +1965,332 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['get_carts', 'get_sub_total']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/checkOut.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/checkOut.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      billing_address: {
+        name: '',
+        email: '',
+        address: '',
+        address2: '',
+        town: '',
+        state: '',
+        phone: '',
+        order_notes: ''
+      }
+    };
+  },
+  created: function created() {
+    this.billing_address = this.get_billing_address;
+  },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)(['set_billing_address'])), {}, {
+    checout_confirm: function checout_confirm() {
+      this.set_billing_address(this.billing_address);
+      var stripe = Stripe("pk_test_51JAfGoGegh5E3HUjZ1VadWf7TGX0FVyQh0wspFL5AYjUU2q8ZUI3rjN8MNUtiFLPBgculGZz5OujWJHwVwY7EXs400kbWEmzAv"); //axios.post("/checkout-confirm")
+
+      axios.post("/checkout-confirm").then(function (response) {
+        return response.data;
+      }).then(function (session) {
+        // console.log('hi');
+        return stripe.redirectToCheckout({
+          sessionId: session.id
+        });
+      }).then(function (result) {
+        // If redirectToCheckout fails due to a browser or network
+        // error, you should display the localized error message to your
+        // customer using error.message.
+        console.log(result);
+
+        if (result.error) {
+          alert(result.error.message);
+        }
+      })["catch"](function (error) {
+        console.error("Error:", error);
+      });
+    }
+  }),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['get_carts', 'get_billing_address', 'get_sub_total']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/invoice.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/invoice.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  created: function created() {
+    if (this.get_carts.length > 0) {
+      var checkout_information = {
+        cart: this.get_carts,
+        billing_address: this.get_billing_address,
+        sub_total: this.get_sub_total
+      };
+      this.save_checkout_information(checkout_information);
+    } else {
+      this.fetch_latest_saved_cart();
+    }
+  },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['save_checkout_information', 'fetch_latest_saved_cart'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)(['reset_cart'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['get_billing_address', 'get_carts', 'get_sub_total', 'get_invoice_id', 'get_invoice_date', 'get_check_success', 'get_latest_saved_cart']))
 });
 
 /***/ }),
@@ -2140,6 +2464,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.size = '';
     }
   }),
+  watch: {
+    get_selected_cart: {
+      handler: function handler(val) {
+        this.qty = this.get_selected_cart.qty;
+        this.color = this.get_selected_cart.color;
+        this.size = this.get_selected_cart.size;
+      },
+      deep: true
+    }
+  },
   data: function data() {
     return {
       product_show_image: '',
@@ -2150,7 +2484,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       price: ''
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['get_product_details'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['get_product_details', 'get_selected_cart'])), {}, {
     get_product_price: function get_product_price() {
       if (this.product.discount_price > 0) {
         return this.product.discount_price;
@@ -2364,6 +2698,8 @@ Vue.component('productSingleBody', __webpack_require__(/*! ./components/productC
 Vue.component('productDetails', __webpack_require__(/*! ./components/productComponents/productDetails.vue */ "./resources/js/components/productComponents/productDetails.vue").default);
 Vue.component('productHeaderCart', __webpack_require__(/*! ./components/productComponents/productHeaderCart.vue */ "./resources/js/components/productComponents/productHeaderCart.vue").default);
 Vue.component('cartDetails', __webpack_require__(/*! ./components/productComponents/cartDetails.vue */ "./resources/js/components/productComponents/cartDetails.vue").default);
+Vue.component('checkOut', __webpack_require__(/*! ./components/productComponents/checkOut.vue */ "./resources/js/components/productComponents/checkOut.vue").default);
+Vue.component('invoice', __webpack_require__(/*! ./components/productComponents/invoice.vue */ "./resources/js/components/productComponents/invoice.vue").default);
 
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 
@@ -2384,6 +2720,22 @@ if (document.getElementById("productCart")) {
 if (document.getElementById("productCartDetails")) {
   var _app2 = new Vue({
     el: "#productCartDetails",
+    store: store,
+    computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['get_sub_total']))
+  });
+}
+
+if (document.getElementById("checkOut")) {
+  var _app3 = new Vue({
+    el: "#checkOut",
+    store: store,
+    computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['get_sub_total']))
+  });
+}
+
+if (document.getElementById("invoiceBody")) {
+  var _app4 = new Vue({
+    el: "#invoiceBody",
     store: store,
     computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['get_sub_total']))
   });
@@ -2451,17 +2803,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_product_list__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/product_list */ "./resources/js/store/modules/product_list.js");
 /* harmony import */ var _modules_product_cart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/product_cart */ "./resources/js/store/modules/product_cart.js");
+/* harmony import */ var _modules_checkout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/checkout */ "./resources/js/store/modules/checkout.js");
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuex__WEBPACK_IMPORTED_MODULE_2__.default);
 
 
+
 var store = new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store({
   plugins: [(0,vuex_persistedstate__WEBPACK_IMPORTED_MODULE_0__.default)()],
   modules: {
     product_list: _modules_product_list__WEBPACK_IMPORTED_MODULE_3__.default,
-    product_cart: _modules_product_cart__WEBPACK_IMPORTED_MODULE_4__.default
+    product_cart: _modules_product_cart__WEBPACK_IMPORTED_MODULE_4__.default,
+    checkout: _modules_checkout__WEBPACK_IMPORTED_MODULE_5__.default
   },
   state: {},
   getters: {},
@@ -2469,6 +2824,91 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store({
   actions: {}
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/checkout.js":
+/*!************************************************!*\
+  !*** ./resources/js/store/modules/checkout.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+ // state list
+
+var state = {
+  billing_address: {
+    name: '',
+    email: '',
+    address: '',
+    address2: '',
+    town: '',
+    state: '',
+    phone: '',
+    order_notes: ''
+  },
+  invoice_id: '',
+  invoice_date: '',
+  check_success: false
+}; // get state
+
+var getters = {
+  get_billing_address: function get_billing_address(state) {
+    return state.billing_address;
+  },
+  get_invoice_id: function get_invoice_id(state) {
+    return state.invoice_id;
+  },
+  get_invoice_date: function get_invoice_date(state) {
+    return state.invoice_date;
+  },
+  get_check_success: function get_check_success(state) {
+    return state.check_success;
+  }
+}; // actions
+
+var actions = {
+  save_checkout_information: function save_checkout_information(state, checkout_information) {
+    var _this = this;
+
+    //console.log(checkout_information);
+    axios__WEBPACK_IMPORTED_MODULE_0___default().post('/save-checkout-information', checkout_information).then(function (res) {
+      _this.commit('set_invoice_id_and_date', {
+        invoice_id: res.data.invoice_id,
+        invoice_date: res.data.invoice_date
+      });
+    });
+  }
+}; // mutators
+
+var mutations = {
+  set_billing_address: function set_billing_address(state, billing_address) {
+    state.billing_address = billing_address;
+  },
+  set_invoice_id_and_date: function set_invoice_id_and_date(state, info) {
+    state.invoice_id = info.invoice_id;
+    state.invoice_date = info.invoice_date;
+    state.check_success = true;
+    this.commit('reset_cart', null, {
+      root: true
+    });
+    this.dispatch('fetch_latest_saved_cart', null, {
+      root: true
+    });
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
 
 /***/ }),
 
@@ -2489,7 +2929,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var state = {
   sub_total: 0,
-  carts: []
+  carts: [],
+  selected_cart: {},
+  latest_saved_cart: {}
 }; // get state
 
 var getters = {
@@ -2498,19 +2940,23 @@ var getters = {
   },
   get_sub_total: function get_sub_total(state) {
     return state.sub_total;
+  },
+  get_selected_cart: function get_selected_cart(state) {
+    return state.selected_cart;
+  },
+  get_latest_saved_cart: function get_latest_saved_cart(state) {
+    return state.latest_saved_cart;
   }
-  /*get_selected_cart: state => state.selected_cart,
-  get_latest_saved_cart: state => state.latest_saved_cart, */
-
 }; // actions
 
 var actions = {
-  /* fetch_latest_saved_cart: function(state){
-      axios.get('/get_latest_checkout_information')
-          .then((res)=>{
-              this.commit('save_latest_saved_cart',res.data);
-          })
-   }, */
+  fetch_latest_saved_cart: function fetch_latest_saved_cart(state) {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('/get_latest_checkout_information').then(function (res) {
+      _this.commit('save_latest_saved_cart', res.data);
+    });
+  }
 }; // mutators
 
 var mutations = {
@@ -2521,6 +2967,9 @@ var mutations = {
     state.carts = temp_cart;
     state.carts.unshift(cart);
     this.commit('calculate_cart_total');
+  },
+  set_selected_cart: function set_selected_cart(state, cart) {
+    state.selected_cart = cart;
   },
   remove_form_carts: function remove_form_carts(state, cart) {
     var temp_cart = state.carts.filter(function (item) {
@@ -2540,6 +2989,14 @@ var mutations = {
     state.sub_total = state.carts.reduce(function (total, item) {
       return total += item.product_price * item.qty;
     }, 0);
+  },
+  reset_cart: function reset_cart(state) {
+    state.sub_total = 0;
+    state.carts = [];
+    state.selected_cart = {};
+  },
+  save_latest_saved_cart: function save_latest_saved_cart(state, info) {
+    state.latest_saved_cart = info;
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -38746,6 +39203,84 @@ component.options.__file = "resources/js/components/productComponents/cartDetail
 
 /***/ }),
 
+/***/ "./resources/js/components/productComponents/checkOut.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/productComponents/checkOut.vue ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _checkOut_vue_vue_type_template_id_0c6a3d1b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checkOut.vue?vue&type=template&id=0c6a3d1b& */ "./resources/js/components/productComponents/checkOut.vue?vue&type=template&id=0c6a3d1b&");
+/* harmony import */ var _checkOut_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./checkOut.vue?vue&type=script&lang=js& */ "./resources/js/components/productComponents/checkOut.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _checkOut_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _checkOut_vue_vue_type_template_id_0c6a3d1b___WEBPACK_IMPORTED_MODULE_0__.render,
+  _checkOut_vue_vue_type_template_id_0c6a3d1b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/productComponents/checkOut.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/productComponents/invoice.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/productComponents/invoice.vue ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _invoice_vue_vue_type_template_id_e5ba4170___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./invoice.vue?vue&type=template&id=e5ba4170& */ "./resources/js/components/productComponents/invoice.vue?vue&type=template&id=e5ba4170&");
+/* harmony import */ var _invoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./invoice.vue?vue&type=script&lang=js& */ "./resources/js/components/productComponents/invoice.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _invoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _invoice_vue_vue_type_template_id_e5ba4170___WEBPACK_IMPORTED_MODULE_0__.render,
+  _invoice_vue_vue_type_template_id_e5ba4170___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/productComponents/invoice.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/productComponents/productDetails.vue":
 /*!**********************************************************************!*\
   !*** ./resources/js/components/productComponents/productDetails.vue ***!
@@ -38883,6 +39418,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/productComponents/checkOut.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/productComponents/checkOut.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_checkOut_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./checkOut.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/checkOut.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_checkOut_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/productComponents/invoice.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/productComponents/invoice.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_invoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./invoice.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/invoice.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_invoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/productComponents/productDetails.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************!*\
   !*** ./resources/js/components/productComponents/productDetails.vue?vue&type=script&lang=js& ***!
@@ -38944,6 +39511,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_cartDetails_vue_vue_type_template_id_56c93b1d___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_cartDetails_vue_vue_type_template_id_56c93b1d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./cartDetails.vue?vue&type=template&id=56c93b1d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/cartDetails.vue?vue&type=template&id=56c93b1d&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/productComponents/checkOut.vue?vue&type=template&id=0c6a3d1b&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/productComponents/checkOut.vue?vue&type=template&id=0c6a3d1b& ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_checkOut_vue_vue_type_template_id_0c6a3d1b___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_checkOut_vue_vue_type_template_id_0c6a3d1b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_checkOut_vue_vue_type_template_id_0c6a3d1b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./checkOut.vue?vue&type=template&id=0c6a3d1b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/checkOut.vue?vue&type=template&id=0c6a3d1b&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/productComponents/invoice.vue?vue&type=template&id=e5ba4170&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/productComponents/invoice.vue?vue&type=template&id=e5ba4170& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_invoice_vue_vue_type_template_id_e5ba4170___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_invoice_vue_vue_type_template_id_e5ba4170___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_invoice_vue_vue_type_template_id_e5ba4170___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./invoice.vue?vue&type=template&id=e5ba4170& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/invoice.vue?vue&type=template&id=e5ba4170&");
 
 
 /***/ }),
@@ -39279,6 +39880,785 @@ var staticRenderFns = [
           attrs: { type: "button", "data-dismiss": "modal" }
         },
         [_vm._v("Close")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/checkOut.vue?vue&type=template&id=0c6a3d1b&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/checkOut.vue?vue&type=template&id=0c6a3d1b& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c("div", { staticClass: "customer-details-area" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-xl-6 col-lg-6 col-md-12 col-12" }, [
+          _c("div", { staticClass: "customer-details mb-50" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "customer-details-form account-form p-20 clear" },
+              [
+                _c("form", { attrs: { action: "#" } }, [
+                  _c("span", { staticClass: "form-row-first" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.billing_address.name,
+                          expression: "billing_address.name"
+                        }
+                      ],
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.billing_address.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.billing_address,
+                            "name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "form-row-first" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.billing_address.email,
+                          expression: "billing_address.email"
+                        }
+                      ],
+                      attrs: { type: "email" },
+                      domProps: { value: _vm.billing_address.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.billing_address,
+                            "email",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.billing_address.address,
+                          expression: "billing_address.address"
+                        }
+                      ],
+                      attrs: { type: "text", placeholder: "Street address" },
+                      domProps: { value: _vm.billing_address.address },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.billing_address,
+                            "address",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.billing_address.address2,
+                          expression: "billing_address.address2"
+                        }
+                      ],
+                      attrs: {
+                        type: "text",
+                        placeholder: "Apartment, suite, unit etc. (optional)"
+                      },
+                      domProps: { value: _vm.billing_address.address2 },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.billing_address,
+                            "address2",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", [
+                    _vm._m(6),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.billing_address.town,
+                          expression: "billing_address.town"
+                        }
+                      ],
+                      attrs: { type: "text", placeholder: "your city/town" },
+                      domProps: { value: _vm.billing_address.town },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.billing_address,
+                            "town",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.billing_address.state,
+                          expression: "billing_address.state"
+                        }
+                      ],
+                      attrs: {
+                        type: "text",
+                        placeholder: "Apartment, suite, unit etc. (optional)"
+                      },
+                      domProps: { value: _vm.billing_address.state },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.billing_address,
+                            "state",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", [
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.billing_address.phone,
+                          expression: "billing_address.phone"
+                        }
+                      ],
+                      attrs: { type: "text", placeholder: "017****" },
+                      domProps: { value: _vm.billing_address.phone },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.billing_address,
+                            "phone",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-xl-6 col-lg-6 col-md-12 col-12" }, [
+          _c("div", { staticClass: "additional-information mb-50" }, [
+            _vm._m(9),
+            _vm._v(" "),
+            _c("b", [_vm._v("Order Notes")]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.billing_address.order_notes,
+                  expression: "billing_address.order_notes"
+                }
+              ],
+              attrs: {
+                cols: "30",
+                rows: "10",
+                placeholder:
+                  "Notes about your order, e.g. special notes for delivery."
+              },
+              domProps: { value: _vm.billing_address.order_notes },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.billing_address,
+                    "order_notes",
+                    $event.target.value
+                  )
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-success",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.checout_confirm.apply(null, arguments)
+                  }
+                }
+              },
+              [_vm._v("Checkout")]
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "checkout-order-area mb-35" }, [
+      _vm._m(10),
+      _vm._v(" "),
+      _c("div", { staticClass: "order_review table-responsive" }, [
+        _c("table", [
+          _vm._m(11),
+          _c(
+            "tbody",
+            _vm._l(_vm.get_carts, function(cart, index) {
+              return _c("tr", { key: index, staticClass: "cart_item" }, [
+                _c("td", { staticClass: "product-thumbnail" }, [
+                  _c(
+                    "a",
+                    { attrs: { href: "/product-details/" + cart.product.id } },
+                    [
+                      _c("img", {
+                        staticStyle: { width: "60px" },
+                        attrs: { src: "/" + cart.product.thumb_image, alt: "" }
+                      })
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "product-name" }, [
+                  _vm._v(
+                    "\n                          " +
+                      _vm._s(cart.product.name) +
+                      "\n                      "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "product-name" }, [
+                  _c("strong", { staticClass: "product-quantity" }, [
+                    _vm._v(
+                      " " +
+                        _vm._s(cart.qty) +
+                        " X $" +
+                        _vm._s(
+                          cart.product.discount_price || cart.product.price
+                        )
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "product-total" }, [
+                  _c("span", [
+                    _vm._v(
+                      "$" +
+                        _vm._s(
+                          cart.qty *
+                            (cart.product.discount_price || cart.product.price)
+                        )
+                    )
+                  ])
+                ])
+              ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("tfoot", [
+            _c("tr", { staticClass: "cart-subtotal" }, [
+              _c("th", { staticClass: "text-right", attrs: { colspan: "3" } }, [
+                _vm._v("Subtotal")
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("strong", [
+                  _c("span", [_vm._v("$ " + _vm._s(_vm.get_sub_total))])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", { staticClass: "order-total" }, [
+              _c("th", { staticClass: "text-right", attrs: { colspan: "3" } }, [
+                _vm._v("Total")
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("strong", [
+                  _c("span", [_vm._v("$ " + _vm._s(_vm.get_sub_total))])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "checkout-title text-center mtb-20" }, [
+          _c("h1", [_vm._v("Checkout")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "checkout-area" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-xl-12 col-lg-12 col-md-12 co-12" }, [
+          _c("div", { staticClass: "coupon-code-area p-20 mb-20" }, [
+            _c("div", { staticClass: "returning-customer mb-10" }, [
+              _c("i", { staticClass: "fa fa-book" }),
+              _vm._v(" "),
+              _c("span", [_vm._v("Have a coupon?")]),
+              _vm._v(" "),
+              _c("span", { staticClass: "code" }, [
+                _vm._v("Click here to enter your code")
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "code-form account-form p-20 clear box-shadow bg-fff",
+                staticStyle: { display: "none" }
+              },
+              [
+                _c("form", { attrs: { action: "#" } }, [
+                  _c("span", { staticClass: "form-row-first" }, [
+                    _c("input", {
+                      attrs: { type: "text", placeholder: "Coupon Code" }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "form-row-last login-button" }, [
+                    _c("button", [_vm._v("Apply Coupon")])
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "customer-details-title mb-10" }, [
+      _c("h2", [_vm._v("Billing Details")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("b", [
+      _vm._v("Name "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("b", [
+      _vm._v("Email Address "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("b", [
+      _vm._v("Address "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("b", [
+      _vm._v("Town/City "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("b", [
+      _vm._v("State "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("b", [
+      _vm._v("Phone "),
+      _c("span", { staticClass: "required" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "customer-details-title mb-10" }, [
+      _c("h2", [_vm._v("Additional Information")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "order-title pb-10 mb-20 text-uppercase" },
+      [_c("h3", [_vm._v("Your order")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tbody", [
+      _c("tr", [
+        _c("th", { staticClass: "product-name" }, [_vm._v("Image")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "product-name" }, [_vm._v("Product")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "product-name" }, [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "product-total" }, [_vm._v("Total")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/invoice.vue?vue&type=template&id=e5ba4170&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/productComponents/invoice.vue?vue&type=template&id=e5ba4170& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "card card-body printableArea mb-4" }, [
+      _c("h3", [
+        _c("b", [_vm._v("INVOICE")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "pull-right" }, [
+          _vm._v("#" + _vm._s(_vm.get_invoice_id))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "pull-right text-right" }, [
+            _c("address", [
+              _c("h3", [_vm._v("To,")]),
+              _vm._v(" "),
+              _c("h4", { staticClass: "font-bold" }, [
+                _vm._v(_vm._s(_vm.get_billing_address.name))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-muted m-l-30" }, [
+                _vm._v(
+                  "\n                                      " +
+                    _vm._s(_vm.get_billing_address.address) +
+                    ", "
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                                      " +
+                    _vm._s(_vm.get_billing_address.address2) +
+                    ", "
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                                      " +
+                    _vm._s(_vm.get_billing_address.town) +
+                    ", "
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                                      " +
+                    _vm._s(_vm.get_billing_address.state) +
+                    ", "
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                                      +88" +
+                    _vm._s(_vm.get_billing_address.phone) +
+                    ", "
+                ),
+                _c("br")
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "m-t-30" }, [
+                _c("b", [_vm._v("Invoice Date : ")]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("i", { staticClass: "fa fa-calendar" }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.get_invoice_date))])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-12" }, [
+          _c(
+            "div",
+            {
+              staticClass: "table-responsive m-t-40",
+              staticStyle: { clear: "both" }
+            },
+            [
+              _c("table", { staticClass: "table table-hover" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.get_latest_saved_cart.order_products, function(
+                    cart,
+                    index
+                  ) {
+                    return _c("tr", { key: index }, [
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(_vm._s(index + 1))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(" " + _vm._s(cart.product_name) + " ")]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-right" }, [
+                        _vm._v(" " + _vm._s(cart.qty) + "  ")
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-right" }, [
+                        _vm._v(" $ " + _vm._s(cart.price))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-right" }, [
+                        _vm._v(
+                          " $ " + _vm._s(parseInt(cart.qty) * cart.price) + " "
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "pull-right m-t-30 text-right" }, [
+            _c("p", [
+              _vm._v(
+                "Sub-Total amount: $" +
+                  _vm._s(_vm.get_latest_saved_cart.subtotal)
+              )
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("h3", [
+              _c("b", [_vm._v("Total :")]),
+              _vm._v(" $" + _vm._s(_vm.get_latest_saved_cart.total))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "clearfix" }),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _vm._m(2)
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "pull-left" }, [
+      _c("address", [
+        _c("h3", [
+          _c("b", { staticClass: "text-danger" }, [_vm._v("Ayon's Web Store")])
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "text-muted m-l-5" }, [
+          _vm._v(
+            "\n                                      Dhanmondi,\n                                      "
+          ),
+          _c("br"),
+          _vm._v(" Dhaka,\n                                      "),
+          _c("br"),
+          _vm._v(" Bangladesh\n                                      "),
+          _c("br"),
+          _vm._v(" 01620006811\n                                      "),
+          _c("br"),
+          _vm._v(" 01620006812\n                                  ")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Unit Cost")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Total")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default btn-outline",
+          attrs: { id: "print", type: "button" }
+        },
+        [
+          _c("span", [
+            _c("i", { staticClass: "fa fa-print" }),
+            _vm._v(" Print")
+          ])
+        ]
       )
     ])
   }

@@ -154,6 +154,17 @@ export default {
     },
 
     },
+    watch:{
+    get_selected_cart: {
+            handler(val){
+            this.qty = this.get_selected_cart.qty;
+            this.color = this.get_selected_cart.color;
+            this.size = this.get_selected_cart.size;
+            },
+            deep: true
+        }
+
+    },
 
     data: function(){
         return {
@@ -169,8 +180,7 @@ export default {
      computed: {
     ...mapGetters([
         'get_product_details',
-
-
+        'get_selected_cart',
     ]),
     get_product_price: function(){
         if(this.product.discount_price >0){

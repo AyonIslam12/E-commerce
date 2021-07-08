@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Stripe\Stripe;
 use App\Models\product;
 use Illuminate\Http\Request;
+use Stripe\Checkout\Session;
+use Illuminate\Support\Facades\DB;
 
 class WebsiteController extends Controller
 {
@@ -31,9 +34,40 @@ class WebsiteController extends Controller
     public function cart(){
         return \view('website.ecommerce.pages.products.cart');
     }
+
     public function checkout(){
         return \view('website.ecommerce.pages.products.checkout');
     }
+
+    public function checkout_confirm()
+    {
+        \Stripe\Stripe::setApiKey('sk_test_51JAfGoGegh5E3HUjyGksfy3Z8iRdVre6zfXiVkBFklcddV19Uh1UcSd7KiKiVa2tGrVgcOj8Xp60B1XC0UoguKPa00vMw4kl4o');
+        header('Content-Type: application/json');
+        $YOUR_DOMAIN = 'http://127.0.0.1:8000/';
+        $checkout_session = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'usd',
+                    'unit_amount' => 2000,
+                    'product_data' => [
+                        'name' => 'Stubborn Attachments',
+                        'images' => ["https://i.imgur.com/EHyR2nP.png"]
+                    ],
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => $YOUR_DOMAIN . 'checkout-success',
+            'cancel_url' => $YOUR_DOMAIN . 'checkout',
+        ]);
+        echo json_encode(['id' => $checkout_session->id]);
+    }
+
+    public function checkout_success(){
+        return \view('website.ecommerce.pages.products.invoice');
+    }
+
     public function wishlist(){
         return \view('website.ecommerce.pages.products.wishlist');
     }

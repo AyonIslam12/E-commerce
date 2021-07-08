@@ -93,15 +93,14 @@ export default {
         'remove_from_carts',
         'change_cart_qty',
         'set_product_details',
-        //'set_selected_cart',
+        'set_selected_cart',
     ]),
 
       remove_product_form_carts: function(cart){
           this.remove_form_carts(cart);
       },
       showModal: function(cart_details){
-            // console.log(cart_details);
-            //this.set_selected_cart(cart_details);
+            this.set_selected_cart(cart_details);
             this.set_product_details(cart_details.product);
             $('#cartEditModal').modal('show');
         },

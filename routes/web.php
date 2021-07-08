@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\FilemanagerController;
 use App\Http\Controllers\Admin\Usercontroller;
 use App\Http\Controllers\Admin\UserRoleController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Product\BrandController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\ColorController;
@@ -40,7 +41,14 @@ Route::get('/',[WebsiteController::class,'index'])->name('website_home');
 Route::get('/products',[WebsiteController::class,'products'])->name('website_products');
 Route::get('/product-details/{product}',[WebsiteController::class,'productDetails'])->name('website_products_details');
 Route::get('/cart',[WebsiteController::class,'cart'])->name('website_cart');
-Route::get('/checkout',[WebsiteController::class,'checkout'])->name('website_checkout');
+
+Route::get('/checkout',[WebsiteController::class,'checkout'])->name('website_checkout')->middleware('auth');
+Route::post('/checkout-confirm',[WebsiteController::class,'checkout_confirm'])->name('check_out_confirm');
+Route::get('/checkout-success',[WebsiteController::class,'checkout_success'])->name('checkout_success')->middleware('auth');
+Route::post('/save-checkout-information',[CheckoutController::class,'checkout_information'])->name('checkout_information')->middleware('auth');
+Route::get('/get_latest_checkout_information',[CheckoutController::class,'get_latest_checkout_information'])->name('get_latest_checkout_information')->middleware('auth');
+
+
 Route::get('/your-wishlist',[WebsiteController::class,'wishlist'])->name('website_wishlist');
 Route::get('/contact-us',[WebsiteController::class,'contact'])->name('website_contact');
 Route::get('/learn', [WebsiteController::class,'vue'])->name('website_vue');

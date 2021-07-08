@@ -1,4 +1,8 @@
-@extends('website.ecommerce.master') @section('title') Shopping-Cart @stop @section('content')
+@extends('website.ecommerce.master')
+
+ @section('title') Shopping-Cart @stop
+
+  @section('content')
 
 <div class="cart-main-container shop-bg" id="productCartDetails">
     <div class="cart-area">
@@ -222,9 +226,7 @@
                         </table>
                     </div>
                     <div class="simple-product-form contuct-form mb-30">
-                        <form action="#">
-                            <button>Proceed to Checkout</button>
-                        </form>
+                        <a href="/checkout" class="btn btn-outline-warning btn-sm text-dark">Proceed to Checkout</a>
                     </div>
                 </div>
             </div>
